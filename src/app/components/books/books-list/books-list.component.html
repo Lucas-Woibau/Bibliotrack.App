@@ -1,55 +1,88 @@
-<div class="table-responsive shadow-sm rounded-3 border">
-  <table class="table align-middle mb-0">
+<div class="container py-4">
 
-    <thead class="bg-light position-sticky top-0 z-1">
-      <tr class="text-secondary text-uppercase small">
-        <th class="py-3 px-4">Título</th>
-        <th class="py-3 px-4">Autor</th>
-        <th class="py-3 px-4">Descrição</th>
-        <th class="py-3 px-4 text-center">Qtd</th>
-        <th class="py-3 px-4">Registro</th>
-        <th class="py-3 px-4">Catálogo</th>
-        <th class="py-3 px-4">Status</th>
-      </tr>
-    </thead>
+  <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
 
-    <tbody class="bg-white">
-      @for (book of Books; track book.id) {
+    <input type="text"
+           id="searchBox"
+           class="form-control form-control-lg shadow-sm"
+           placeholder="Pesquisar por título ou autor..." />
 
-        <tr class="border-bottom">
-          <td class="py-3 px-4 fw-semibold">{{ book.title }}</td>
+    <a asp-page="Create" class="btn btn-success btn-lg shadow-sm d-flex align-items-center gap-2">
+      <i class="fa-solid fa-book"></i>
+      <span>Cadastrar</span>
+    </a>
 
-          <td class="py-3 px-4 text-muted">{{ book.author }}</td>
+  </div>
 
-          <td class="py-3 px-4 text-muted"
-              style="max-width: 260px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+  <div class="table-responsive shadow-lg rounded-4 border overflow-hidden">
+
+    <table class="table table-hover table-nowrap align-middle mb-0 w-100">
+
+      <thead class="bg-body-tertiary text-secondary text-uppercase small position-sticky top-0 z-1">
+        <tr>
+          <th class="px-4">Título</th>
+          <th>Autor</th>
+          <th style="width: 22%;">Descrição</th>
+          <th class="text-center">Qtd</th>
+          <th>Registro</th>
+          <th>Catálogo</th>
+          <th>Status</th>
+          <th class="text-center" style="width: 120px;">Ações</th>
+        </tr>
+      </thead>
+
+      <tbody class="bg-white">
+
+        @for (book of Books; track book.id) {
+
+        <tr>
+
+          <td class="px-4 fw-semibold text-dark">{{ book.title }}</td>
+
+          <td>{{ book.author }}</td>
+
+          <td class="text-muted text-truncate desc-col">
             {{ book.description }}
           </td>
 
-          <td class="py-3 px-4 text-center fw-semibold">
+          <td class="text-center fw-semibold">
             {{ book.quantity }}
           </td>
 
-          <td class="py-3 px-4">
-            {{ book.registrationDateShort }}
-          </td>
+          <td>{{ book.registrationDateShort }}</td>
 
-          <td class="py-3 px-4">
-            {{ book.catalog }}
-          </td>
+          <td>{{ book.catalog }}</td>
 
-          <td class="py-3 px-4">
-            <span class="badge rounded-pill px-3 py-2
-              {{ book.status === 'Disponível' ? 'bg-success-subtle text-success' : '' }}
-              {{ book.status === 'Indisponível' ? 'bg-danger-subtle text-danger' : '' }}
-              {{ book.status === 'Baixo Estoque' ? 'bg-warning-subtle text-warning' : '' }}">
+          <td>
+            <span class="badge status-badge fw-semibold text-uppercase">
               {{ book.status }}
             </span>
           </td>
 
+          <td class="text-center">
+            <div class="d-flex justify-content-center gap-3 action-group">
+
+              <button class="btn-action text-info" title="Detalhes">
+                <i class="fa-solid fa-circle-info fa-lg"></i>
+              </button>
+
+              <button class="btn-action text-warning" title="Editar">
+                <i class="fa-solid fa-pen-to-square fa-lg"></i>
+              </button>
+
+              <button class="btn-action text-danger" title="Excluir">
+                <i class="fa-solid fa-trash fa-lg"></i>
+              </button>
+
+            </div>
+          </td>
+
         </tr>
 
-      }
-    </tbody>
-  </table>
+        }
+
+      </tbody>
+    </table>
+
+  </div>
 </div>
