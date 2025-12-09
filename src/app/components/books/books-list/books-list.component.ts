@@ -1,10 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { BookService } from '../../../services/book.service';
-import { IBookInterface } from '../../../interfaces/IBook-interface';
+import { IBookInterface } from '../../../interfaces/IBookInterface';
+import { BookLoanNavComponent } from "../../book-loan-nav/book-loan-nav.component";
 
 @Component({
   selector: 'app-books-list',
-  imports: [],
+  imports: [BookLoanNavComponent],
   templateUrl: './books-list.component.html',
   styleUrl: './books-list.component.css'
 })

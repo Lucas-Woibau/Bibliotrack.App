@@ -1,0 +1,53 @@
+.table-nowrap td,
+.table-nowrap th {
+  white-space: nowrap;
+}
+
+.desc-col {
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+table tr {
+  height: 60px;
+  vertical-align: middle;
+}
+
+a.btn {
+  white-space: nowrap;
+}
+
+.action-group {
+  min-width: 110px;
+}
+
+.status-badge {
+  padding: 6px 14px;
+  border-radius: 50px;
+  white-space: nowrap;
+  font-size: 0.75rem;
+}
+
+.status-badge:contains("Disponível") {
+  background-color: var(--bs-success-bg-subtle);
+  color: var(--bs-success);
+}
+
+.status-badge:contains("Indisponível") {
+  background-color: var(--bs-danger-bg-subtle);
+  color: var(--bs-danger);
+}
+
+.btn-action {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn-action:hover {
+  transform: scale(1.15);
+  opacity: 0.85;
+}
