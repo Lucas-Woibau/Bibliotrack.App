@@ -7,13 +7,8 @@
          class="form-control form-control-lg shadow-sm"
          placeholder="Pesquisar por título ou autor..." />
 
-  <a class="btn btn-success btn-lg shadow-sm d-flex align-items-center gap-2">
-    <i class="fa-solid fa-book"></i>
-    <span>Cadastrar Livro</span>
-  </a>
-
-  <a class="btn btn-success btn-lg shadow-sm d-flex align-items-center gap-2">
-    <i class="fa-solid fa-book"></i>
+  <a class="btn btn-primary btn-lg shadow-sm d-flex align-items-center gap-2">
+    <i class="fa-solid fa-book-open-reader"></i>
     <span>Cadastrar Empréstimo</span>
   </a>
 
@@ -45,13 +40,13 @@
           <td>{{ loan.personName }}</td>
 
           <td class="text-muted text-truncate desc-col">
-            {{ loan.loanDateShort }}
+            {{ loan.loanDate }}
           </td>
 
           <td class="text-center">
             <div class="d-flex justify-content-center gap-3 action-group">
 
-              <button class="btn-action text-info" title="Detalhes">
+              <button class="btn-action text-primary" title="Detalhes">
                 <i class="fa-solid fa-circle-info fa-lg"></i>
               </button>
 

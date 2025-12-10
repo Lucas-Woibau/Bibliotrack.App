@@ -18,7 +18,7 @@ export class LoansListComponent {
     (response) => {
       console.log("API RESPONSE => ", response.data);
       this.Loans = response.data;
-    console.log("BOOKS SETADO =>", this.Loans);}
-    );
+    console.log("BOOKS SETADO =>", this.Loans);
+  });
   }
 }

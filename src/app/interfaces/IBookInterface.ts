@@ -4,7 +4,6 @@ export interface IBookInterface {
   author?:string,
   description?:string,
   quantity: number,
-  registrationDate: Date,
   registrationDateShort: string,
   catalog?:string,
   status: string

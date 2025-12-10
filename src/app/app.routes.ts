@@ -7,12 +7,13 @@ import { LoansAddComponent } from './components/loans/loans-add/loans-add.compon
 import { LoansEditComponent } from './components/loans/loans-edit/loans-edit.component';
 
 export const routes: Routes = [
-  {path: '', component: BooksListComponent},
+  {path: '', redirectTo: '/Livros', pathMatch: 'full'},
+
   {path: 'Livros', component: BooksListComponent},
   {path: 'AdicionarLivro', component: BooksAddComponent},
   {path: 'EditarLivro', component: BooksEditComponent},
 
-  {path:'Emprestimos', component: LoansListComponent},
+  {path: 'Emprestimos', component: LoansListComponent},
   {path: 'AdicionarEmprestimo', component: LoansAddComponent},
   {path: 'EditarEmprestimo', component: LoansEditComponent}
 ];
