@@ -2,10 +2,11 @@ import { Component, inject } from '@angular/core';
 import { BookLoanNavComponent } from "../../book-loan-nav/book-loan-nav.component";
 import { LoanService } from '../../../services/loan.service';
 import { ILoanInterface } from '../../../interfaces/ILoanInterface';
+import { RouterLink } from "@angular/router";
 
 @Component({
   selector: 'app-loans-list',
-  imports: [BookLoanNavComponent],
+  imports: [BookLoanNavComponent, RouterLink],
   templateUrl: './loans-list.component.html',
   styleUrl: './loans-list.component.css'
 })
