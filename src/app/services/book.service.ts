@@ -11,6 +11,6 @@ export class BookService {
   readonly apiUrl = 'https://localhost:7251/api/';
 
   getBooks(): Observable<{data:IBookInterface[]}>{
-    return this._httpClient.get<{data: IBookInterface[]}>(this.apiUrl + "books");
+    return this._httpClient.get<{data: IBookInterface[]}>(`${this.apiUrl}/loans`);
   }
 }

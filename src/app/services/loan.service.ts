@@ -12,6 +12,10 @@ private readonly _httpClient = inject(HttpClient);
   readonly apiUrl = 'https://localhost:7251/api/';
 
   getLoans(): Observable<{data:ILoanInterface[]}>{
-    return this._httpClient.get<{data: ILoanInterface[]}>(this.apiUrl + "loans");
+    return this._httpClient.get<{data: ILoanInterface[]}>(`${this.apiUrl}/loans`);
+  }
+
+  getLoanById(id:number):Observable<{data:ILoanInterface}>{
+    return this._httpClient.get<{data: ILoanInterface}>(`${this.apiUrl}/loans/${id}`);
   }
 }

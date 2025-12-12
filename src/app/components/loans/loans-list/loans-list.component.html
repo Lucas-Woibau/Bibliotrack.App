@@ -39,14 +39,14 @@
 
           <td>{{ loan.personName }}</td>
 
-          <td class="text-muted text-truncate desc-col">
-            {{ loan.loanDate }}
+          <td class="px-4 text-dark">
+            {{ loan.loanDateShort }}
           </td>
 
           <td class="text-center">
             <div class="d-flex justify-content-center gap-3 action-group">
 
-              <button class="btn-action text-primary" title="Detalhes">
+              <button class="btn-action text-primary" (click)="openDetailsModal(loan)" title="Detalhes">
                 <i class="fa-solid fa-circle-info fa-lg"></i>
               </button>
 

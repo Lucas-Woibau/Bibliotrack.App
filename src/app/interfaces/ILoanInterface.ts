@@ -2,5 +2,7 @@ export interface ILoanInterface {
   id: number,
   bookTitle: string,
   personName: string,
-  loanDate: string
+  loanDateShort: string,
+  expectedReturnBookDateShort: string
+  returnDateShort: string
 }
