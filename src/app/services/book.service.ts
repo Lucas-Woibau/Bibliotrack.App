@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { IBookInterface } from '../interfaces/IBookInterface';
+import { IBook } from '../interfaces/IBook';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -8,9 +8,9 @@ import { Observable } from 'rxjs';
 })
 export class BookService {
   private readonly _httpClient = inject(HttpClient);
-  readonly apiUrl = 'https://localhost:7251/api/';
+  readonly apiUrl = 'https://localhost:7251/api';
 
-  getBooks(): Observable<{data:IBookInterface[]}>{
-    return this._httpClient.get<{data: IBookInterface[]}>(`${this.apiUrl}/loans`);
+  getBooks(): Observable<{data:IBook[]}>{
+    return this._httpClient.get<{data: IBook[]}>(`${this.apiUrl}/books`);
   }
 }

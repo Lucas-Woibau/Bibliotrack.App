@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { BookLoanNavComponent } from "../../book-loan-nav/book-loan-nav.component";
 import { LoanService } from '../../../services/loan.service';
-import { ILoanInterface } from '../../../interfaces/ILoanInterface';
+import { ILoan } from '../../../interfaces/ILoan';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { LoanDetailsComponent } from '../loan-details/loan-details.component';
 
@@ -13,7 +13,7 @@ import { LoanDetailsComponent } from '../loan-details/loan-details.component';
 })
 export class LoansListComponent {
   private readonly _loanService = inject(LoanService)
-  Loans: ILoanInterface[]=[];
+  Loans: ILoan[]=[];
   private dialog = inject(MatDialog)
 
   ngOnInit(){
@@ -25,9 +25,9 @@ export class LoansListComponent {
   });
   }
 
-  protected openDetailsModal(loan: any){
+  openDetailsModal(id: number){
     this.dialog.open(LoanDetailsComponent,{
-      data: loan
+      data: { id: id }
     });
   }
 }

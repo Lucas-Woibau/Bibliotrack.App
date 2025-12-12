@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { ILoanInterface } from '../interfaces/ILoanInterface';
+import { ILoan } from '../interfaces/ILoan';
 import { Observable } from 'rxjs';
+import { ILoanDetails } from '../interfaces/ILoanDetails';
 
 @Injectable({
   providedIn: 'root'
@@ -9,13 +10,13 @@ import { Observable } from 'rxjs';
 export class LoanService {
 
 private readonly _httpClient = inject(HttpClient);
-  readonly apiUrl = 'https://localhost:7251/api/';
+  readonly apiUrl = 'https://localhost:7251/api';
 
-  getLoans(): Observable<{data:ILoanInterface[]}>{
-    return this._httpClient.get<{data: ILoanInterface[]}>(`${this.apiUrl}/loans`);
+  getLoans(): Observable<{data:ILoan[]}>{
+    return this._httpClient.get<{data: ILoan[]}>(`${this.apiUrl}/loans`);
   }
 
-  getLoanById(id:number):Observable<{data:ILoanInterface}>{
-    return this._httpClient.get<{data: ILoanInterface}>(`${this.apiUrl}/loans/${id}`);
+  getLoanById(id:number):Observable<{data:ILoanDetails}>{
+    return this._httpClient.get<{data:ILoanDetails}>(`${this.apiUrl}/loans/${id}`);
   }
 }

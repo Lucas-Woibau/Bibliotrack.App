@@ -1,4 +1,4 @@
-export interface ILoanInterface {
+export interface ILoanDetails {
   id: number,
   bookTitle: string,
   personName: string,

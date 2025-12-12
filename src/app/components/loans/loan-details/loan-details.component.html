@@ -6,31 +6,31 @@
 
     <div class="mb-3">
       <strong>Livro:</strong>
-      <span class="text-dark fw-semibold">{{ data.bookTitle }}</span>
+      <span class="text-dark fw-semibold">{{ loan?.bookTitle }}</span>
     </div>
 
     <div class="mb-3">
       <strong>Pessoa:</strong>
-      <span class="text-dark fw-semibold">{{ data.personName }}</span>
+      <span class="text-dark fw-semibold">{{ loan?.personName }}</span>
     </div>
 
     <div class="mb-3">
       <strong>Data de Empréstimo:</strong>
-      <span class="text-dark">{{ data.loanDateShort }}</span>
+      <span class="text-dark">{{ loan?.loanDateShort }}</span>
     </div>
 
     <div class="mb-3">
       <strong>Data de Retorno Esperado:</strong>
-      <span class="text-dark">{{ data.expectedReturnBookDateShort }}</span>
+      <span class="text-dark">{{ loan?.expectedReturnBookDateShort }}</span>
     </div>
 
     <div class="mb-3">
       <strong>Data de Retorno:</strong>
-      <span class="text-dark">{{ data.returnDateDateShort }}</span>
+      <span class="text-dark">{{ loan?.returnDateShort }}</span>
     </div>
 
     <div class="d-flex justify-content-end mt-4">
-      <button mat-button color="btn btn-primary" (click)="dialogRef.close()">Fechar</button>
+      <button mat-button color="btn btn-primary">Fechar</button>
     </div>
 
   </div>

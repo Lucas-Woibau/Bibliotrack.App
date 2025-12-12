@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { BookService } from '../../../services/book.service';
-import { IBookInterface } from '../../../interfaces/IBookInterface';
+import { IBook } from '../../../interfaces/IBook';
 import { BookLoanNavComponent } from "../../book-loan-nav/book-loan-nav.component";
 
 @Component({
@@ -11,7 +11,7 @@ import { BookLoanNavComponent } from "../../book-loan-nav/book-loan-nav.componen
 })
 export class BooksListComponent {
   private readonly _bookService = inject(BookService);
-  Books: IBookInterface[] = [];
+  Books: IBook[] = [];
 
   ngOnInit(){
     this._bookService.getBooks().subscribe(
