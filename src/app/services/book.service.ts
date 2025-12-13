@@ -13,4 +13,8 @@ export class BookService {
   getBooks(): Observable<{data:IBook[]}>{
     return this._httpClient.get<{data: IBook[]}>(`${this.apiUrl}/books`);
   }
+
+  getBookById(id:number):Observable<{data:IBook}>{
+    return this._httpClient.get<{data:IBook}>(`${this.apiUrl}/books/${id}`);
+  }
 }

@@ -1,37 +1,93 @@
-<div class="container py-4">
+<div class="border-0 rounded-4 shadow-lg bg-white overflow-hidden">
 
-  <h2 class="mb-4 text-primary fw-bold">Detalhes do Empréstimo</h2>
+  <!-- HEADER -->
+  <div class="d-flex justify-content-between align-items-center px-4 py-3 border-bottom bg-primary-subtle">
 
-  <div class="shadow-sm rounded-4 border p-4 bg-white">
-
-    <div class="mb-3">
-      <strong>Livro:</strong>
-      <span class="text-dark fw-semibold">{{ loan?.bookTitle }}</span>
+    <div class="p-2 d-flex align-items-center gap-2">
+      <i class="fa-solid fa-book-open-reader fs-4 text-primary"></i>
+      <h5 class="mb-0 fw-bold text-primary">
+        Detalhes do Empréstimo
+      </h5>
     </div>
 
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="dialogRef.close()">
+    </button>
+  </div>
+
+  <!-- BODY -->
+  <div class="px-4 py-4">
+
+    <!-- LIVRO -->
     <div class="mb-3">
-      <strong>Pessoa:</strong>
-      <span class="text-dark fw-semibold">{{ loan?.personName }}</span>
+      <div class="small text-secondary fw-semibold mb-1">
+        Livro
+      </div>
+      <div class="p-3 rounded-3 border fs-5 fw-semibold text-muted lh-sm">
+        {{ loan?.bookTitle }}
+      </div>
     </div>
 
-    <div class="mb-3">
-      <strong>Data de Empréstimo:</strong>
-      <span class="text-dark">{{ loan?.loanDateShort }}</span>
+    <!-- PESSOA -->
+    <div class="mb-4">
+      <div class="small text-secondary fw-semibold mb-1">
+        Pessoa
+      </div>
+      <div class="p-3 rounded-3 border fw-semibold text-muted">
+        {{ loan?.personName }}
+      </div>
     </div>
 
-    <div class="mb-3">
-      <strong>Data de Retorno Esperado:</strong>
-      <span class="text-dark">{{ loan?.expectedReturnBookDateShort }}</span>
+    <!-- DATA DE EMPRÉSTIMO (DESTAQUE) -->
+    <div class="mb-4">
+      <div class="small text-secondary fw-semibold mb-1">
+        Data de empréstimo
+      </div>
+      <div class="p-3 rounded-3 border fw-semibold text-muted">
+        {{ loan?.loanDateShort }}
+      </div>
     </div>
 
-    <div class="mb-3">
-      <strong>Data de Retorno:</strong>
-      <span class="text-dark">{{ loan?.returnDateShort }}</span>
-    </div>
+    <!-- CARD DE RETORNO -->
+    <div class="rounded-3 border bg-white p-3">
 
-    <div class="d-flex justify-content-end mt-4">
-      <button mat-button color="btn btn-primary">Fechar</button>
+      <div class="row g-3">
+
+        <div class="col-md-6">
+          <div class="small text-secondary mb-1">
+            Retorno esperado
+          </div>
+          <div class="fw-semibold text-muted">
+            {{ loan?.expectedReturnBookDateShort }}
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <div class="small text-secondary mb-1">
+            Retorno realizado
+          </div>
+          <div class="fw-semibold text-muted">
+            {{ loan?.returnDateShort || '—' }}
+          </div>
+        </div>
+
+      </div>
     </div>
 
   </div>
+
+  <!-- FOOTER -->
+  <div class="d-flex justify-content-end px-4 py-3 border-top bg-primary-subtle">
+
+    <button
+      class="btn btn-light px-4"
+      (click)="dialogRef.close()">
+      Fechar
+    </button>
+
+  </div>
+
 </div>

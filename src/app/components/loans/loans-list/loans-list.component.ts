@@ -12,11 +12,15 @@ import { LoanDetailsComponent } from '../loan-details/loan-details.component';
   styleUrl: './loans-list.component.css'
 })
 export class LoansListComponent {
-  private readonly _loanService = inject(LoanService)
+  private readonly _loanService = inject(LoanService);
   Loans: ILoan[]=[];
-  private dialog = inject(MatDialog)
+  private dialog = inject(MatDialog);
 
   ngOnInit(){
+    this.loadLoans();
+  }
+
+  loadLoans(){
     this._loanService.getLoans().subscribe(
     (response) => {
       console.log("API RESPONSE => ", response.data);
@@ -27,7 +31,13 @@ export class LoansListComponent {
 
   openDetailsModal(id: number){
     this.dialog.open(LoanDetailsComponent,{
-      data: { id: id }
+      data: { id: id },
+      disableClose: true,
+      width: '520px',
+      maxWidth: '95vw',
+      autoFocus: false,
+      enterAnimationDuration: '250ms',
+      exitAnimationDuration: '150ms'
     });
   }
 }
