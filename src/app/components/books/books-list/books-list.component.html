@@ -4,8 +4,10 @@
 
   <input type="text"
          id="searchBox"
+         #searchInput
          class="form-control form-control-lg shadow-sm"
-         placeholder="Pesquisar por título ou autor..." />
+         placeholder="Pesquisar por título ou autor..."
+         (input)="onSearch(searchInput.value)"/>
 
   <a class="btn btn-success btn-lg shadow-sm d-flex align-items-center gap-2">
     <i class="fa-solid fa-book"></i>

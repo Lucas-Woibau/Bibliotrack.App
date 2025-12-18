@@ -4,6 +4,7 @@ import { LoanService } from '../../../services/loan.service';
 import { ILoan } from '../../../interfaces/ILoan';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { LoanDetailsComponent } from '../loan-details/loan-details.component';
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-loans-list',
@@ -15,18 +16,28 @@ export class LoansListComponent {
   private readonly _loanService = inject(LoanService);
   Loans: ILoan[]=[];
   private dialog = inject(MatDialog);
+  private search$ = new Subject<string>();
 
-  ngOnInit(){
-    this.loadLoans();
+  ngOnInit(): void{
+    this.loadLoans('');
+
+    this.search$.pipe(
+      debounceTime(100),
+      distinctUntilChanged()
+    ).subscribe(search => this.loadLoans(search));
+
+    this.search$.next('');
   }
 
-  loadLoans(){
-    this._loanService.getLoans().subscribe(
+  loadLoans(search: string){
+    this._loanService.getLoans(search).subscribe(
     (response) => {
-      console.log("API RESPONSE => ", response.data);
       this.Loans = response.data;
-    console.log("BOOKS SETADO =>", this.Loans);
   });
+  }
+
+  onSearch(value:string){
+    this.search$.next(value);
   }
 
   openDetailsModal(id: number){

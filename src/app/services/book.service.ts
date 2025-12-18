@@ -10,8 +10,10 @@ export class BookService {
   private readonly _httpClient = inject(HttpClient);
   readonly apiUrl = 'https://localhost:7251/api';
 
-  getBooks(): Observable<{data:IBook[]}>{
-    return this._httpClient.get<{data: IBook[]}>(`${this.apiUrl}/books`);
+  getBooks(search?: string): Observable<{data:IBook[]}>{
+    return this._httpClient.get<{data: IBook[]}>(`${this.apiUrl}/books`, {
+      params: {search: search ?? ''}
+    });
   }
 
   getBookById(id:number):Observable<{data:IBook}>{

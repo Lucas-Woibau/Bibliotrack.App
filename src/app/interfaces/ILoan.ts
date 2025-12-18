@@ -3,6 +3,7 @@ export interface ILoan {
   bookTitle: string,
   personName: string,
   loanDateShort: string,
-  expectedReturnBookDateShort: string
-  returnDateShort: string
+  expectedReturnBookDateShort: string,
+  returnDateShort: string,
+  status: string
 }

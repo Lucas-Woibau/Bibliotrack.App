@@ -4,6 +4,7 @@ import { IBook } from '../../../interfaces/IBook';
 import { BookLoanNavComponent } from "../../book-loan-nav/book-loan-nav.component";
 import { MatDialog } from '@angular/material/dialog';
 import { BookDetailsComponent } from '../book-details/book-details.component';
+import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-books-list',
@@ -15,18 +16,29 @@ export class BooksListComponent {
   private readonly _bookService = inject(BookService);
   Books: IBook[] = [];
   private dialog = inject(MatDialog);
+  private search$ = new Subject<string>();
+
 
   ngOnInit(){
-    this.loadBooks();
+    this.loadBooks('');
+
+    this.search$.pipe(
+          debounceTime(100),
+          distinctUntilChanged()
+        ).subscribe(search => this.loadBooks(search));
+
+        this.search$.next('');
   }
 
-  loadBooks(){
-    this._bookService.getBooks().subscribe(
+  loadBooks(search:string){
+    this._bookService.getBooks(search).subscribe(
     (response) => {
-      console.log("API RESPONSE => ", response.data);
-      this.Books = response.data;
-    console.log("BOOKS SETADO =>", this.Books);}
+      this.Books = response.data;}
     );
+  }
+
+  onSearch(value:string){
+    this.search$.next(value);
   }
 
   openDetailsModal(id: number){

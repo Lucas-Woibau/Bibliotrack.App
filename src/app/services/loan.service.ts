@@ -12,8 +12,10 @@ export class LoanService {
 private readonly _httpClient = inject(HttpClient);
   readonly apiUrl = 'https://localhost:7251/api';
 
-  getLoans(): Observable<{data:ILoan[]}>{
-    return this._httpClient.get<{data: ILoan[]}>(`${this.apiUrl}/loans`);
+  getLoans(search?:string): Observable<{data:ILoan[]}>{
+    return this._httpClient.get<{data: ILoan[]}>(`${this.apiUrl}/loans`,{
+      params: {search: search ?? ''}
+    });
   }
 
   getLoanById(id:number):Observable<{data:ILoanDetails}>{
