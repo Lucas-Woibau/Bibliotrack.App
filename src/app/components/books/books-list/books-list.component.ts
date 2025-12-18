@@ -5,6 +5,7 @@ import { BookLoanNavComponent } from "../../book-loan-nav/book-loan-nav.componen
 import { MatDialog } from '@angular/material/dialog';
 import { BookDetailsComponent } from '../book-details/book-details.component';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
+import { BooksAddComponent } from '../books-add/books-add.component';
 
 @Component({
   selector: 'app-books-list',
@@ -44,6 +45,17 @@ export class BooksListComponent {
   openDetailsModal(id: number){
     this.dialog.open(BookDetailsComponent,{
       data: { id: id },
+      disableClose: true,
+      width: '520px',
+      maxWidth: '95vw',
+      autoFocus: false,
+      enterAnimationDuration: '250ms',
+      exitAnimationDuration: '150ms'
+    });
+  }
+
+  openAddModal(){
+    this.dialog.open(BooksAddComponent,{
       disableClose: true,
       width: '520px',
       maxWidth: '95vw',

@@ -9,7 +9,7 @@
          placeholder="Pesquisar por título ou autor..."
          (input)="onSearch(searchInput.value)"/>
 
-  <a class="btn btn-success btn-lg shadow-sm d-flex align-items-center gap-2">
+  <a class="btn btn-success btn-lg shadow-sm d-flex align-items-center gap-2" (click)="openAddModal()">
     <i class="fa-solid fa-book"></i>
     <span>Cadastrar Livro</span>
   </a>
