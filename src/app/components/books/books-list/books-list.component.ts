@@ -7,6 +7,7 @@ import { BookDetailsComponent } from '../book-details/book-details.component';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { BooksAddComponent } from '../books-add/books-add.component';
 import { DialogRef } from '@angular/cdk/dialog';
+import { ModalConfimationComponent } from '../../modal-confimation/modal-confimation.component';
 
 @Component({
   selector: 'app-books-list',
@@ -69,8 +70,35 @@ export class BooksListComponent {
       if(result === true){
         this.loadBooks('');
       }
-    })
+    });
   }
+
+  openDeleteBookModal(id: number) {
+  const dialogRef = this.dialog.open(ModalConfimationComponent, {
+    disableClose: true,
+    width: '420px',
+    maxWidth: '95vw',
+    autoFocus: false,
+    enterAnimationDuration: '250ms',
+    exitAnimationDuration: '150ms',
+    data: {
+      title: 'Confirmar exclusão',
+      message: 'Tem certeza que deseja excluir este livro?',
+      confirmText: 'Excluir',
+      cancelText: 'Cancelar'
+    }
+  });
+
+  dialogRef.afterClosed().subscribe(confirmed => {
+    if (confirmed === true) {
+      this._bookService.deleteBook(id).subscribe({
+        next: () => this.loadBooks(''),
+      });
+    }
+  });
+}
+
+
 }
 
 
