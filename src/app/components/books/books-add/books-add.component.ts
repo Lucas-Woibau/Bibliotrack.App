@@ -51,7 +51,7 @@ constructor(
       },
       error: err =>{
         this.snackBar.openFromComponent(ErrorSnackbarComponent, {
-          data: {message: 'Erro ao salvar o livro.'},
+          data: {message: 'Erro ao salvar o livro.', err},
           duration: 5000,
           horizontalPosition: 'right',
           verticalPosition: 'bottom',

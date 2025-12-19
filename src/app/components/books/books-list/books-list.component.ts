@@ -8,6 +8,8 @@ import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { BooksAddComponent } from '../books-add/books-add.component';
 import { DialogRef } from '@angular/cdk/dialog';
 import { ModalConfimationComponent } from '../../modal-confimation/modal-confimation.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SuccessSnackbarComponent } from '../../snackbar-messages/snackbar-success/success-snackbar.component';
 
 @Component({
   selector: 'app-books-list',
@@ -20,7 +22,7 @@ export class BooksListComponent {
   Books: IBook[] = [];
   private dialog = inject(MatDialog);
   private search$ = new Subject<string>();
-
+  private snackBar = inject(MatSnackBar);
 
   ngOnInit(){
     this.loadBooks('');
@@ -92,7 +94,15 @@ export class BooksListComponent {
   dialogRef.afterClosed().subscribe(confirmed => {
     if (confirmed === true) {
       this._bookService.deleteBook(id).subscribe({
-        next: () => this.loadBooks(''),
+        next: () => {
+          this.snackBar.openFromComponent(SuccessSnackbarComponent, {
+            data: {message: 'Livro deletado com sucesso!'},
+            duration: 4000,
+            horizontalPosition: 'right',
+            verticalPosition: 'bottom',
+            panelClass: ['custom-snackbar']
+          });
+        }
       });
     }
   });
