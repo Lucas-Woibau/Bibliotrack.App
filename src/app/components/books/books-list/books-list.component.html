@@ -9,7 +9,7 @@
          placeholder="Pesquisar por título ou autor..."
          (input)="onSearch(searchInput.value)"/>
 
-  <a class="btn btn-success btn-lg shadow-sm d-flex align-items-center gap-2" (click)="openAddModal()">
+  <a class="btn btn-success btn-lg shadow-sm d-flex align-items-center gap-2" (click)="openAddBookModal()">
     <i class="fa-solid fa-book"></i>
     <span>Cadastrar Livro</span>
   </a>
@@ -68,7 +68,7 @@
           <td class="text-center">
             <div class="d-flex justify-content-center gap-3 action-group">
 
-              <button class="btn-action text-primary" title="Detalhes" (click)="openDetailsModal(book.id)">
+              <button class="btn-action text-primary" title="Detalhes" (click)="openBookDetailsModal(book.id)">
                 <i class="fa-solid fa-circle-info fa-lg"></i>
               </button>
 

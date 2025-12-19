@@ -6,6 +6,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { BookDetailsComponent } from '../book-details/book-details.component';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
 import { BooksAddComponent } from '../books-add/books-add.component';
+import { DialogRef } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'app-books-list',
@@ -42,7 +43,7 @@ export class BooksListComponent {
     this.search$.next(value);
   }
 
-  openDetailsModal(id: number){
+  openBookDetailsModal(id: number){
     this.dialog.open(BookDetailsComponent,{
       data: { id: id },
       disableClose: true,
@@ -54,8 +55,8 @@ export class BooksListComponent {
     });
   }
 
-  openAddModal(){
-    this.dialog.open(BooksAddComponent,{
+  openAddBookModal(){
+    const dialogRef = this.dialog.open(BooksAddComponent,{
       disableClose: true,
       width: '520px',
       maxWidth: '95vw',
@@ -63,6 +64,12 @@ export class BooksListComponent {
       enterAnimationDuration: '250ms',
       exitAnimationDuration: '150ms'
     });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result === true){
+        this.loadBooks('');
+      }
+    })
   }
 }
 

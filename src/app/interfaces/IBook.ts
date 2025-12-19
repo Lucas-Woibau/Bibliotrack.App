@@ -3,8 +3,8 @@ export interface IBook {
   title:string,
   author?:string,
   description?:string,
-  quantity: number,
-  registrationDateShort: string,
+  quantity?: number,
+  registrationDateShort?: string | null,
   catalog?:string,
   status: string
 }
