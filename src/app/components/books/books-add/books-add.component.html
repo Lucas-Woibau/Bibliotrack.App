@@ -88,10 +88,14 @@
             Data de registro
           </div>
           <input
-            type="date"
+            type="text"
             class="form-control fw-semibold"
             formControlName="registrationDate"
-            placeholder="dd/MM/yyyy" />
+            placeholder="dd/MM/aaaa"
+            mask="00/00/0000"
+            [showMaskTyped]="true"
+            [dropSpecialCharacters]="false"
+            inputmode="numeric"/>
         </div>
 
       </div>

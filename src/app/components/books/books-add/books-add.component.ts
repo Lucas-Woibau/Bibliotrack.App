@@ -6,10 +6,12 @@ import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SuccessSnackbarComponent } from '../../snackbar-messages/snackbar-success/success-snackbar.component';
 import { ErrorSnackbarComponent } from '../../snackbar-messages/snackbar-error/error-snackbar.component';
+import { NgxMaskDirective } from 'ngx-mask';
+import { parseDateToIso } from '../../../utils/data.utils';
 
 @Component({
   selector: 'app-books-add',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, NgxMaskDirective],
   templateUrl: './books-add.component.html',
   styleUrl: './books-add.component.css'
 })
@@ -28,13 +30,21 @@ constructor(
     author: [``],
     catalog: [``],
     quantity: [1, [Validators.required, Validators.min(1)]],
-    registrationDate: [null]
+    registrationDate: [``]
   });
 
   addBook(){
     if(this.bookForm.invalid) return;
 
-    const newBook = this.bookForm.value;
+    const newBook = {
+      title: this.bookForm.get('title')?.value,
+      description: this.bookForm.get('description')?.value,
+      author: this.bookForm.get('author')?.value,
+      catalog: this.bookForm.get('catalog')?.value,
+      quantity: this.bookForm.get('quantity')?.value,
+      registrationDate: parseDateToIso(
+        this.bookForm.get('registrationDate')?.value ?? null)
+    }
 
     this._bookService.addBook(newBook as Partial<IBook>).subscribe({
       next:() => {

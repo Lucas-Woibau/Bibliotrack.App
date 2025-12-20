@@ -6,6 +6,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ErrorSnackbarComponent } from '../../snackbar-messages/snackbar-error/error-snackbar.component';
 import { SuccessSnackbarComponent } from '../../snackbar-messages/snackbar-success/success-snackbar.component';
 import { NgxMaskDirective } from 'ngx-mask';
+import { parseDateToIso } from '../../../utils/data.utils';
 
 @Component({
   selector: 'app-books-edit',
@@ -82,7 +83,7 @@ export class BooksEditComponent implements OnInit{
     author: this.bookForm.get('author')?.value,
     catalog: this.bookForm.get('catalog')?.value,
     quantity: this.bookForm.get('quantity')?.value,
-    registrationDate: this.parseDateToIso(
+    registrationDate: parseDateToIso(
     this.bookForm.get('registrationDate')?.value)
   };
 
@@ -120,16 +121,5 @@ export class BooksEditComponent implements OnInit{
     this.dialogRef.close(false);
   }
 
-  parseDateToIso(date: string | null): string | null {
-  if (!date || date.length !== 10) return null;
-
-  const [day, month, year] = date.split('/').map(Number);
-
-  const parsed = new Date(year, month - 1, day);
-
-  if (isNaN(parsed.getTime())) return null;
-
-  return parsed.toISOString();
 }
 
-}
