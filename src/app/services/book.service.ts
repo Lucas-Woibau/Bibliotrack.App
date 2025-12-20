@@ -21,9 +21,11 @@ export class BookService {
   }
 
   addBook(book: Partial<IBook>): Observable<{data:IBook}>{
-    return this._httpClient.post<{data: IBook}>(
-      `${this.apiUrl}/books`, book
-    )
+    return this._httpClient.post<{data: IBook}>(`${this.apiUrl}/books/`, book);
+  }
+
+  updateBook(book: { idBook: number } & Partial<IBook>) {
+  return this._httpClient.put(`${this.apiUrl}/books/${book.idBook}`,book);
   }
 
   deleteBook(id:number): Observable<void>{

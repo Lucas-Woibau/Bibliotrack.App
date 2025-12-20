@@ -10,6 +10,7 @@ import { DialogRef } from '@angular/cdk/dialog';
 import { ModalConfimationComponent } from '../../modal-confimation/modal-confimation.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SuccessSnackbarComponent } from '../../snackbar-messages/snackbar-success/success-snackbar.component';
+import { BooksEditComponent } from '../books-edit/books-edit.component';
 
 @Component({
   selector: 'app-books-list',
@@ -71,7 +72,25 @@ export class BooksListComponent {
     dialogRef.afterClosed().subscribe(result => {
       if(result === true){
         this.loadBooks('');
-      }
+      };
+    });
+  }
+
+  openEditBookModal(id: number){
+    const dialogRef = this.dialog.open(BooksEditComponent,{
+      data: { id },
+      disableClose: true,
+      width: '520px',
+      maxWidth: '95vw',
+      autoFocus: false,
+      enterAnimationDuration: '250ms',
+      exitAnimationDuration: '150ms'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result === true){
+        this.loadBooks('');
+      };
     });
   }
 
@@ -102,13 +121,12 @@ export class BooksListComponent {
             verticalPosition: 'bottom',
             panelClass: ['custom-snackbar']
           });
+          this.loadBooks('');
         }
       });
     }
   });
 }
-
-
 }
 
 
