@@ -104,7 +104,7 @@ export class BooksListComponent {
     exitAnimationDuration: '150ms',
     data: {
       title: 'Confirmar exclusão',
-      message: 'Tem certeza que deseja excluir este livro?',
+      message: 'Tem certeza que deseja excluir esse livro?',
       confirmText: 'Excluir',
       cancelText: 'Cancelar'
     }

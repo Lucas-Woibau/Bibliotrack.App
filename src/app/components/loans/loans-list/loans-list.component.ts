@@ -5,6 +5,11 @@ import { ILoan } from '../../../interfaces/ILoan';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { LoanDetailsComponent } from '../loan-details/loan-details.component';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
+import { LoansAddComponent } from '../loans-add/loans-add.component';
+import { LoansEditComponent } from '../loans-edit/loans-edit.component';
+import { ModalConfimationComponent } from '../../modal-confimation/modal-confimation.component';
+import { SuccessSnackbarComponent } from '../../snackbar-messages/snackbar-success/success-snackbar.component';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-loans-list',
@@ -17,6 +22,7 @@ export class LoansListComponent {
   Loans: ILoan[]=[];
   private dialog = inject(MatDialog);
   private search$ = new Subject<string>();
+  private snackBar = inject(MatSnackBar);
 
   ngOnInit(): void{
     this.loadLoans('');
@@ -40,7 +46,7 @@ export class LoansListComponent {
     this.search$.next(value);
   }
 
-  openDetailsModal(id: number){
+  openLoanDetailsModal(id: number){
     this.dialog.open(LoanDetailsComponent,{
       data: { id: id },
       disableClose: true,
@@ -49,6 +55,75 @@ export class LoansListComponent {
       autoFocus: false,
       enterAnimationDuration: '250ms',
       exitAnimationDuration: '150ms'
+    });
+  }
+
+  openAddLoanModal(){
+    const dialogRef = this.dialog.open(LoansAddComponent,{
+      disableClose: true,
+      width: '520px',
+      maxWidth: '95vw',
+      autoFocus: false,
+      enterAnimationDuration: '250ms',
+      exitAnimationDuration: '150ms'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result === true){
+        this.loadLoans('');
+      };
+    });
+  }
+
+  openEditLoanModal(id: number){
+    const dialogRef = this.dialog.open(LoansEditComponent,{
+      data: { id },
+      disableClose: true,
+      width: '520px',
+      maxWidth: '95vw',
+      autoFocus: false,
+      enterAnimationDuration: '250ms',
+      exitAnimationDuration: '150ms'
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if(result === true){
+        this.loadLoans('');
+      };
+    });
+  }
+
+  openDeleteLoanModal(id: number) {
+    const dialogRef = this.dialog.open(ModalConfimationComponent, {
+      disableClose: true,
+      width: '420px',
+      maxWidth: '95vw',
+      autoFocus: false,
+      enterAnimationDuration: '250ms',
+      exitAnimationDuration: '150ms',
+      data: {
+        title: 'Confirmar exclusão',
+        message: 'Tem certeza que deseja excluir esse empréstimo?',
+        confirmText: 'Excluir',
+        cancelText: 'Cancelar'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(confirmed => {
+      if (confirmed === true) {
+        this._loanService.deleteLoan(id).subscribe({
+          next: () => {
+            this.snackBar.openFromComponent(SuccessSnackbarComponent, {
+              data: {message: 'Empréstimo deletado com sucesso!'},
+              duration: 4000,
+              horizontalPosition: 'right',
+              verticalPosition: 'bottom',
+              panelClass: ['custom-snackbar']
+            });
+            this.loadLoans('');
+          }
+        });
+      }
     });
   }
 }

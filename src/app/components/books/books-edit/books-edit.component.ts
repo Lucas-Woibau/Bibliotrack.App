@@ -32,7 +32,6 @@ export class BooksEditComponent implements OnInit{
   ngOnInit(): void {
     this.createForm();
 
-  console.log('ID recebido no modal:', this.data?.id);
     if (this.data?.id) {
       this.isEdit = true;
       this.bookId = this.data.id;
