@@ -26,8 +26,8 @@ private readonly _httpClient = inject(HttpClient);
     return this._httpClient.post<{data: ILoanDetails}>(`${this.apiUrl}/loans/`, loan);
   }
 
-  updateLoan(loan: { idBook: number } & Partial<ILoanDetails>) {
-    return this._httpClient.put(`${this.apiUrl}/loans/${loan.idBook}`,loan);
+  updateLoan(loan: { idLoan: number } & Partial<ILoanDetails>) {
+    return this._httpClient.put(`${this.apiUrl}/loans/${loan.idLoan}`,loan);
   }
 
   deleteLoan(id:number): Observable<void>{

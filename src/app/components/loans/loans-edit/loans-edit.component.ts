@@ -1,10 +1,11 @@
-import { Component, Inject, inject } from '@angular/core';
+import { Component, Inject, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { NgxMaskDirective } from 'ngx-mask';
 import { LoanService } from '../../../services/loan.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ErrorSnackbarComponent } from '../../snackbar-messages/snackbar-error/error-snackbar.component';
+import { SuccessSnackbarComponent } from '../../snackbar-messages/snackbar-success/success-snackbar.component';
 
 @Component({
   selector: 'app-loans-edit',
@@ -68,15 +69,19 @@ export class LoansEditComponent implements OnInit{
     });
   }
 
-  saveBook() {
+  saveLoan() {
     if (this.loanForm.invalid) return;
 
-    const updatedBook = {
-      idBook: Number(this.loanId),
-      title: this.loanForm.get('title')?.value,
+    const updatedLoan = {
+      idLoan: Number(this.loanId),
+      bookTitle: this.loanForm.get('bookTitle')?.value,
+      personName: this.loanForm.get('personName')?.value,
+      loanDate: this.loanForm.get('loanDate')?.value,
+      expectedReturnBookDate: this.loanForm.get('expectedReturnBookDate')?.value,
+      returnDate: this.loanForm.get('returnDate')?.value,
     };
 
-    this._bookService.updateBook(updatedBook).subscribe({
+    this._loanService.updateLoan(updatedLoan).subscribe({
     next: () => {
       this.snackBar.openFromComponent(SuccessSnackbarComponent, {
         data: { message: 'Livro atualizado com sucesso!' },
@@ -105,4 +110,9 @@ export class LoansEditComponent implements OnInit{
     }
   });
   }
+
+  cancel() {
+    this.dialogRef.close(false);
+  }
+
 }
