@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { ILoan } from '../interfaces/ILoan';
+import { ILoan } from '../models/ILoan';
 import { Observable } from 'rxjs';
-import { ILoanDetails } from '../interfaces/ILoanDetails';
+import { ILoanDetails } from '../models/ILoanDetails';
+import { ILoanUpdateInput } from '../models/ILoanUpdateInput';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +27,8 @@ private readonly _httpClient = inject(HttpClient);
     return this._httpClient.post<{data: ILoanDetails}>(`${this.apiUrl}/loans/`, loan);
   }
 
-  updateLoan(loan: { idLoan: number } & Partial<ILoanDetails>) {
-    return this._httpClient.put(`${this.apiUrl}/loans/${loan.idLoan}`,loan);
+  updateLoan(idLoan: number, payload: ILoanUpdateInput) {
+    return this._httpClient.put(`${this.apiUrl}/loans/${idLoan}`, payload);
   }
 
   deleteLoan(id:number): Observable<void>{

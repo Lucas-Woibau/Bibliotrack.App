@@ -2,7 +2,7 @@ import { Component, inject, Inject, OnInit } from '@angular/core';
 import { BookDetailsComponent } from '../../books/book-details/book-details.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { LoanService } from '../../../services/loan.service';
-import { ILoanDetails } from '../../../interfaces/ILoanDetails';
+import { ILoanDetails } from '../../../models/ILoanDetails';
 
 @Component({
   selector: 'app-loan-details',

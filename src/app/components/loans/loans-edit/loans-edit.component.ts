@@ -6,6 +6,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ErrorSnackbarComponent } from '../../snackbar-messages/snackbar-error/error-snackbar.component';
 import { SuccessSnackbarComponent } from '../../snackbar-messages/snackbar-success/success-snackbar.component';
+import { parseDateToIso } from '../../../utils/data.utils';
+
 
 @Component({
   selector: 'app-loans-edit',
@@ -40,11 +42,12 @@ export class LoansEditComponent implements OnInit{
 
   createForm(){
     this.loanForm = this.fb.group({
+      idBook: [``],
       bookTitle: [``, Validators.required],
       personName: [``],
-      loanDate: [``],
-      expectedReturnBookDate: [``],
-      returnDate: [``]
+      loanDateShort: [``],
+      expectedReturnBookDateShort: [``],
+      returnDateShort: [``],
     });
   }
 
@@ -52,12 +55,15 @@ export class LoansEditComponent implements OnInit{
     this._loanService.getLoanById(this.loanId).subscribe({
       next: (res) =>{
         this.loanForm.patchValue({
+          idBook: res.data.idBook,
           bookTitle: res.data.bookTitle,
           personName: res.data.personName,
-          loanDate: res.data.loanDateShort,
-          expectedReturnBookDate: res.data.expectedReturnBookDateShort,
-          returnDate: res.data.returnDateShort
+          loanDateShort: res.data.loanDateShort,
+          expectedReturnBookDateShort: res.data.expectedReturnBookDateShort,
+          returnDateShort: res.data.returnDateShort,
       });
+      console.log(res.data);
+
       },
       error: () => {
         this.snackBar.openFromComponent(ErrorSnackbarComponent, {
@@ -72,16 +78,19 @@ export class LoansEditComponent implements OnInit{
   saveLoan() {
     if (this.loanForm.invalid) return;
 
-    const updatedLoan = {
-      idLoan: Number(this.loanId),
-      bookTitle: this.loanForm.get('bookTitle')?.value,
-      personName: this.loanForm.get('personName')?.value,
-      loanDate: this.loanForm.get('loanDate')?.value,
-      expectedReturnBookDate: this.loanForm.get('expectedReturnBookDate')?.value,
-      returnDate: this.loanForm.get('returnDate')?.value,
-    };
+    const payload = {
+      idLoan: this.loanId,
+      idBook: this.loanForm.value.idBook,
+      bookTitle: this.loanForm.value.bookTitle,
+      personName: this.loanForm.value.personName,
 
-    this._loanService.updateLoan(updatedLoan).subscribe({
+      loanDate: parseDateToIso(this.loanForm.value.loanDateShort),
+      expectedReturnBook: parseDateToIso(this.loanForm.value.expectedReturnBookDateShort),
+      returnDate: parseDateToIso(this.loanForm.value.returnDateShort)
+};
+
+    console.log(payload);
+    this._loanService.updateLoan(this.loanId, payload).subscribe({
     next: () => {
       this.snackBar.openFromComponent(SuccessSnackbarComponent, {
         data: { message: 'Livro atualizado com sucesso!' },

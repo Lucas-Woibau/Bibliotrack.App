@@ -1,6 +1,5 @@
 import { Component, inject } from '@angular/core';
 import { BookService } from '../../../services/book.service';
-import { IBook } from '../../../interfaces/IBook';
 import { BookLoanNavComponent } from "../../book-loan-nav/book-loan-nav.component";
 import { MatDialog } from '@angular/material/dialog';
 import { BookDetailsComponent } from '../book-details/book-details.component';
@@ -11,6 +10,7 @@ import { ModalConfimationComponent } from '../../modal-confimation/modal-confima
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SuccessSnackbarComponent } from '../../snackbar-messages/snackbar-success/success-snackbar.component';
 import { BooksEditComponent } from '../books-edit/books-edit.component';
+import { IBook } from '../../../models/IBook';
 
 @Component({
   selector: 'app-books-list',

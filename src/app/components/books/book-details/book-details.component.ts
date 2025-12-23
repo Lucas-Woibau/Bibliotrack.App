@@ -1,6 +1,6 @@
 import { Component, Inject, inject, OnInit } from '@angular/core';
 import { BookService } from '../../../services/book.service';
-import { IBook } from '../../../interfaces/IBook';
+import { IBook } from '../../../models/IBook';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 
 @Component({

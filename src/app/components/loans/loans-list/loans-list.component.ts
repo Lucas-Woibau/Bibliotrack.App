@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { BookLoanNavComponent } from "../../book-loan-nav/book-loan-nav.component";
 import { LoanService } from '../../../services/loan.service';
-import { ILoan } from '../../../interfaces/ILoan';
+import { ILoan } from '../../../models/ILoan';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { LoanDetailsComponent } from '../loan-details/loan-details.component';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';

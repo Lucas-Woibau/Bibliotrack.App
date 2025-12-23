@@ -25,7 +25,7 @@
             type="text"
             class="form-control form-control-lg fw-semibold"
             formControlName="bookTitle"
-            placeholder="Digite o título"
+            readonly
           />
         </div>
       </div>
@@ -50,7 +50,7 @@
             <input
               class="form-control form-control-lg fw-semibold"
               type="text"
-              formControlName="loanDate"
+              formControlName="loanDateShort"
               placeholder="dd/MM/aaaa"
               mask="00/00/0000"
               [showMaskTyped]="true"
@@ -68,7 +68,7 @@
             <input
               type="text"
               class="form-control form-control-lg fw-semibold"
-              formControlName="expectedReturnBookDate"
+              formControlName="expectedReturnBookDateShort"
               placeholder="dd/MM/aaaa"
               mask="00/00/0000"
               [showMaskTyped]="true"
@@ -82,7 +82,7 @@
             <input
               type="text"
               class="form-control form-control-lg fw-semibold"
-              formControlName="returnDate"
+              formControlName="returnDateShort"
               placeholder="dd/MM/aaaa"
               mask="00/00/0000"
               [showMaskTyped]="true"

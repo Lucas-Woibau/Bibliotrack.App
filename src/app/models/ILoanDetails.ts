@@ -1,5 +1,6 @@
 export interface ILoanDetails {
   id: number,
+  idBook: number,
   bookTitle: string,
   personName: string,
   loanDateShort?: string,
