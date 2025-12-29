@@ -31,4 +31,13 @@ export class BookService {
   deleteBook(id:number): Observable<void>{
     return this._httpClient.delete<void>(`${this.apiUrl}/books/${id}`);
   }
+
+  getBooksToLoan(search = ''): Observable<{data:IBook[]}>{
+    return this._httpClient.get<{data: IBook[]}>(`${this.apiUrl}/books`, {
+      params: {
+        search,
+        status: 'Disponível'
+      }
+    });
+  }
 }

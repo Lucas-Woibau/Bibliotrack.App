@@ -6,7 +6,7 @@
     >
       <div class="p-2 d-flex align-items-center gap-2">
         <i class="fa-solid fa-pen-to-square fs-4 text-primary"></i>
-        <h5 class="mb-0 fw-bold text-primary">Editar empréstimo</h5>
+        <h5 class="mb-0 fw-bold text-primary">Adicionar empréstimo</h5>
       </div>
 
       <button
@@ -17,18 +17,40 @@
       ></button>
     </div>
 
-    <div class="px-4 py-4">
-      <div class="mb-3">
-        <div class="small text-secondary fw-semibold mb-1">
-          Livro
-          <input
-            type="text"
-            class="form-control form-control-lg fw-semibold"
-            formControlName="bookTitle"
-            readonly
-          />
-        </div>
-      </div>
+    <div class="px-4 py-4 position-relative">
+  <div class="mb-3">
+    <div class="small text-secondary fw-semibold mb-1">
+      Livro
+    </div>
+
+    <input
+      type="text"
+      class="form-control form-control-lg fw-semibold"
+      placeholder="Pesquisar livro"
+      [formControl]="bookSearchControl"
+      (focus)="openDropdown()"
+    />
+
+    @if (showDropdown) {
+      <ul class="list-group position-absolute w-100 shadow rounded-3 mt-1 z-3">
+        @if (filteredBooks.length === 0) {
+          <li class="list-group-item text-secondary">
+            Nenhum livro encontrado
+          </li>
+        }
+
+        @for (book of filteredBooks; track book.id) {
+          <li
+            class="list-group-item list-group-item-action fw-semibold"
+            (click)="selectBook(book)"
+          >
+            {{ book.title }}
+          </li>
+        }
+      </ul>
+    }
+  </div>
+
 
       <div class="mb-3">
         <div class="row g-3">

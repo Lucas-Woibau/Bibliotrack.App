@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { LoanService } from '../../../services/loan.service';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialogRef } from '@angular/material/dialog';
 import { parseDateToIso } from '../../../utils/data.utils';
@@ -8,42 +8,64 @@ import { ILoanAddInput } from '../../../models/ILoanAddInput';
 import { SuccessSnackbarComponent } from '../../snackbar-messages/snackbar-success/success-snackbar.component';
 import { ErrorSnackbarComponent } from '../../snackbar-messages/snackbar-error/error-snackbar.component';
 import { NgxMaskDirective } from 'ngx-mask';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { BookService } from '../../../services/book.service';
+import { IBook } from '../../../models/IBook';
 
 @Component({
   selector: 'app-loans-add',
-  imports: [ReactiveFormsModule, NgxMaskDirective],
+  imports: [ReactiveFormsModule, NgxMaskDirective, NgbModule],
   templateUrl: './loans-add.component.html',
   styleUrl: './loans-add.component.css'
 })
 export class LoansAddComponent{
   private readonly _loanService = inject(LoanService);
+  private readonly _bookService = inject(BookService);
   private readonly fb = inject(FormBuilder);
   private snackBar = inject(MatSnackBar);
+
+  books: IBook[] = [];
+  filteredBooks: IBook[] = [];
+
+  bookSearchControl = new FormControl('');
+  showDropdown = false;
 
   constructor(
     public dialogRef: MatDialogRef<LoansAddComponent>
   ) { }
 
   loanForm = this.fb.group({
-    bookTitle: ['', Validators.required],
+    bookId: this.fb.control<number | null>(null, Validators.required),
     personName: ['', Validators.required],
-    loanDate: [''],
-    expectReturnDate: [''],
-    returnDate: ['']
+    loanDateShort: [''],
+    expectedReturnBookDateShort: [''],
+    returnDateShort: ['']
   });
+
+  ngOnInit(){
+    this.loadBooks('');
+
+    this.bookSearchControl.valueChanges.subscribe(value => {
+    const search = value?.toLowerCase() || '';
+
+    this.filteredBooks = this.books.filter(book =>
+      book.title.toLowerCase().includes(search)
+    );
+  });
+  }
 
   addLoan(){
       if(this.loanForm.invalid) return;
 
       const newLoan = {
-        bookTitle: this.loanForm.get('bookTitle')?.value,
+        bookId: this.loanForm.get('bookId')?.value,
         personName: this.loanForm.get('personName')?.value,
-        loanDate: parseDateToIso(
+        loanDateShort: parseDateToIso(
           this.loanForm.get('loanDateShort')?.value ?? null),
-        expectedReturnDate: parseDateToIso(
-          this.loanForm.get('expectedReturnDate')?.value ?? null),
-        returnDate: parseDateToIso(
-          this.loanForm.get('returnDate')?.value ?? null)
+        expectedReturnBookDateShort: parseDateToIso(
+          this.loanForm.get('expectedReturnBookDateShort')?.value ?? null),
+        returnDateShort: parseDateToIso(
+          this.loanForm.get('returnDateShort')?.value ?? null)
       }
 
       this._loanService.addLoan(newLoan as Partial<ILoanAddInput>).subscribe({
@@ -70,4 +92,22 @@ export class LoansAddComponent{
         }
       });
     }
+
+  loadBooks(search:string){
+    this._bookService.getBooksToLoan(search).subscribe(
+    (response) => {
+      this.books = response.data;
+      this.filteredBooks = response.data;}
+    );
+  }
+
+  openDropdown() {
+    this.showDropdown = true;
+  }
+
+  selectBook(book: IBook) {
+    this.bookSearchControl.setValue(book.title, { emitEvent: false });
+    this.loanForm.patchValue({ bookId: book.id });
+    this.showDropdown = false;
+  }
 }

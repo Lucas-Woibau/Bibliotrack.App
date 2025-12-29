@@ -11,7 +11,7 @@ import { ILoanAddInput } from '../models/ILoanAddInput';
 })
 export class LoanService {
 
-private readonly _httpClient = inject(HttpClient);
+  private readonly _httpClient = inject(HttpClient);
   readonly apiUrl = 'https://localhost:7251/api';
 
   getLoans(search?:string): Observable<{data:ILoan[]}>{

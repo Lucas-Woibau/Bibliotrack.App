@@ -8,8 +8,7 @@
          placeholder="Pesquisar por título do livro ou nome da pessoa.."
          (input)="onSearch(searchInput.value)"/>
 
-  <a class="btn btn-primary btn-lg shadow-sm d-flex align-items-center gap-2"
-  (input)="openAddLoanModal()">
+  <a class="btn btn-primary btn-lg shadow-sm d-flex align-items-center gap-2" (click)="openAddLoanModal()">
     <i class="fa-solid fa-book-open-reader"></i>
     <span>Cadastrar Empréstimo</span>
   </a>
