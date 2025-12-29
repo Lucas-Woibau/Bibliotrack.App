@@ -4,6 +4,7 @@ import { ILoan } from '../models/ILoan';
 import { Observable } from 'rxjs';
 import { ILoanDetails } from '../models/ILoanDetails';
 import { ILoanUpdateInput } from '../models/ILoanUpdateInput';
+import { ILoanAddInput } from '../models/ILoanAddInput';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +24,8 @@ private readonly _httpClient = inject(HttpClient);
     return this._httpClient.get<{data:ILoanDetails}>(`${this.apiUrl}/loans/${id}`);
   }
 
-  addLoan(loan: Partial<ILoanDetails>): Observable<{data:ILoanDetails}>{
-    return this._httpClient.post<{data: ILoanDetails}>(`${this.apiUrl}/loans/`, loan);
+  addLoan(loan: Partial<ILoanAddInput>): Observable<{data:ILoanAddInput}>{
+    return this._httpClient.post<{data: ILoanAddInput}>(`${this.apiUrl}/loans/`, loan);
   }
 
   updateLoan(idLoan: number, payload: ILoanUpdateInput) {
