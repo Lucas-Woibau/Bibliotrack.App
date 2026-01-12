@@ -4,13 +4,13 @@ import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angu
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatDialogRef } from '@angular/material/dialog';
 import { parseDateToIso } from '../../../utils/data.utils';
-import { ILoanAddInput } from '../../../models/ILoanAddInput';
 import { SuccessSnackbarComponent } from '../../snackbar-messages/snackbar-success/success-snackbar.component';
 import { ErrorSnackbarComponent } from '../../snackbar-messages/snackbar-error/error-snackbar.component';
 import { NgxMaskDirective } from 'ngx-mask';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { BookService } from '../../../services/book.service';
 import { IBook } from '../../../models/IBook';
+import { ILoan } from '../../../models/ILoan';
 
 @Component({
   selector: 'app-loans-add',
@@ -35,11 +35,10 @@ export class LoansAddComponent{
   ) { }
 
   loanForm = this.fb.group({
-    bookId: this.fb.control<number | null>(null, Validators.required),
+    idBook: this.fb.control<number | null>(null, Validators.required),
     personName: ['', Validators.required],
-    loanDateShort: [''],
-    expectedReturnBookDateShort: [''],
-    returnDateShort: ['']
+    loanDate: ['', Validators.required],
+    expectedReturnBook: [''],
   });
 
   ngOnInit(){
@@ -58,17 +57,15 @@ export class LoansAddComponent{
       if(this.loanForm.invalid) return;
 
       const newLoan = {
-        bookId: this.loanForm.get('bookId')?.value,
+        idBook: this.loanForm.get('idBook')?.value,
         personName: this.loanForm.get('personName')?.value,
-        loanDateShort: parseDateToIso(
-          this.loanForm.get('loanDateShort')?.value ?? null),
-        expectedReturnBookDateShort: parseDateToIso(
-          this.loanForm.get('expectedReturnBookDateShort')?.value ?? null),
-        returnDateShort: parseDateToIso(
-          this.loanForm.get('returnDateShort')?.value ?? null)
+        loanDate: parseDateToIso(
+          this.loanForm.get('loanDate')?.value ?? null),
+        expectedReturnBook: parseDateToIso(
+          this.loanForm.get('expectedReturnBook')?.value ?? null),
       }
-
-      this._loanService.addLoan(newLoan as Partial<ILoanAddInput>).subscribe({
+      console.log(newLoan);
+      this._loanService.addLoan(newLoan as Partial<ILoan>).subscribe({
         next:() => {
           this.snackBar.openFromComponent(SuccessSnackbarComponent, {
             data: {message: 'Empréstimo adicionado com sucesso!'},
@@ -107,7 +104,7 @@ export class LoansAddComponent{
 
   selectBook(book: IBook) {
     this.bookSearchControl.setValue(book.title, { emitEvent: false });
-    this.loanForm.patchValue({ bookId: book.id });
+    this.loanForm.patchValue({ idBook: book.id });
     this.showDropdown = false;
   }
 }

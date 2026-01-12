@@ -1,5 +1,4 @@
-<form [formGroup]="loanForm"
-  (ngSubmit)="addLoan()">
+<form [formGroup]="loanForm" (ngSubmit)="addLoan()">
   <div class="border-0 rounded-4 shadow-lg bg-white overflow-hidden">
     <div
       class="d-flex justify-content-between align-items-center px-4 py-3 border-bottom bg-primary-subtle"
@@ -17,80 +16,58 @@
       ></button>
     </div>
 
-    <div class="px-4 py-4 position-relative">
-  <div class="mb-3">
-    <div class="small text-secondary fw-semibold mb-1">
-      Livro
-    </div>
+    <div class="px-4 py-4">
+      <div class="mb-3 position-relative">
+        <div class="small text-secondary fw-semibold mb-1">Livro</div>
 
-    <input
-      type="text"
-      class="form-control form-control-lg fw-semibold"
-      placeholder="Pesquisar livro"
-      [formControl]="bookSearchControl"
-      (focus)="openDropdown()"
-    />
+        <input
+          type="text"
+          class="form-control form-control-lg fw-semibold"
+          placeholder="Pesquisar livro"
+          [formControl]="bookSearchControl"
+          (focus)="openDropdown()"
+        />
 
-    @if (showDropdown) {
-      <ul class="list-group position-absolute w-100 shadow rounded-3 mt-1 z-3">
-        @if (filteredBooks.length === 0) {
+        @if (showDropdown) {
+        <ul
+          class="list-group position-absolute start-0 w-100 shadow rounded-3 mt-1 z-3"
+          style="max-height: 240px; overflow-y: auto"
+        >
+          @if (filteredBooks.length === 0) {
           <li class="list-group-item text-secondary">
             Nenhum livro encontrado
           </li>
-        }
-
-        @for (book of filteredBooks; track book.id) {
+          } @for (book of filteredBooks; track book.id) {
           <li
             class="list-group-item list-group-item-action fw-semibold"
             (click)="selectBook(book)"
           >
             {{ book.title }}
           </li>
+          }
+        </ul>
         }
-      </ul>
-    }
-  </div>
-
+      </div>
 
       <div class="mb-3">
-        <div class="row g-3">
-          <div class="col-md-6">
-            <div class="small text-secondary fw-semibold mb-1">
-              Nome da Pessoa
-            </div>
-            <input
-              class="form-control form-control-lg fw-semibold"
-              type="text"
-              formControlName="personName"
-            />
-          </div>
-
-          <div class="col-md-6">
-            <div class="small text-secondary fw-semibold mb-1">
-              Data de empréstimo
-            </div>
-            <input
-              class="form-control form-control-lg fw-semibold"
-              type="text"
-              formControlName="loanDateShort"
-              placeholder="dd/MM/aaaa"
-              mask="00/00/0000"
-              [showMaskTyped]="true"
-              [dropSpecialCharacters]="false"
-              inputmode="numeric"
-            />
-          </div>
-        </div>
+        <div class="small text-secondary fw-semibold mb-1">Nome da Pessoa</div>
+        <input
+          class="form-control form-control-lg fw-semibold"
+          type="text"
+          formControlName="personName"
+        />
       </div>
 
       <div class="rounded-3 border bg-white p-3">
         <div class="row g-3">
           <div class="col-md-6">
-            <div class="small text-secondary mb-1">Retorno esperado</div>
+            <div class="small text-secondary fw-semibold mb-1">
+              Data de Emprestimo
+            </div>
             <input
               type="text"
               class="form-control form-control-lg fw-semibold"
-              formControlName="expectedReturnBookDateShort"
+              formControlName="loanDate"
               placeholder="dd/MM/aaaa"
               mask="00/00/0000"
               [showMaskTyped]="true"
@@ -100,11 +77,13 @@
           </div>
 
           <div class="col-md-6">
-            <div class="small text-secondary mb-1">Retorno realizado</div>
+            <div class="small text-secondary fw-semibold mb-1">
+              Data de Retorno Esperado
+            </div>
             <input
-              type="text"
               class="form-control form-control-lg fw-semibold"
-              formControlName="returnDateShort"
+              type="text"
+              formControlName="expectedReturnBook"
               placeholder="dd/MM/aaaa"
               mask="00/00/0000"
               [showMaskTyped]="true"
@@ -119,13 +98,18 @@
     <div
       class="d-flex justify-content-end px-4 py-3 border-top bg-primary-subtle"
     >
-      <button type="button" class="btn btn-light px-4 me-2" (click)="dialogRef.close()">
+      <button
+        type="button"
+        class="btn btn-light px-4 me-2"
+        (click)="dialogRef.close()"
+      >
         Cancelar
       </button>
       <button
         type="submit"
         class="btn btn-primary px-4"
-        [disabled]="loanForm.invalid">
+        [disabled]="loanForm.invalid"
+      >
         Adicionar
       </button>
     </div>

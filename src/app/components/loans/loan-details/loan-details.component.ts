@@ -2,7 +2,7 @@ import { Component, inject, Inject, OnInit } from '@angular/core';
 import { BookDetailsComponent } from '../../books/book-details/book-details.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { LoanService } from '../../../services/loan.service';
-import { ILoanDetails } from '../../../models/ILoanDetails';
+import { ILoan } from '../../../models/ILoan';
 
 @Component({
   selector: 'app-loan-details',
@@ -11,7 +11,7 @@ import { ILoanDetails } from '../../../models/ILoanDetails';
 })
 export class LoanDetailsComponent implements OnInit {
   private readonly _loanService = inject(LoanService);
-  loan?: ILoanDetails
+  loan?: ILoan;
 
   constructor(
     public dialogRef: MatDialogRef<LoanDetailsComponent>,

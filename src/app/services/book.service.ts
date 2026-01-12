@@ -20,6 +20,12 @@ export class BookService {
     return this._httpClient.get<{data:IBook}>(`${this.apiUrl}/books/${id}`);
   }
 
+  getBooksToLoan(search = ''): Observable<{data:IBook[]}>{
+    return this._httpClient.get<{data: IBook[]}>(`${this.apiUrl}/books/books-to-loan`,{
+      params: {search}
+    });
+  }
+
   addBook(book: Partial<IBook>): Observable<{data:IBook}>{
     return this._httpClient.post<{data: IBook}>(`${this.apiUrl}/books/`, book);
   }
@@ -32,12 +38,4 @@ export class BookService {
     return this._httpClient.delete<void>(`${this.apiUrl}/books/${id}`);
   }
 
-  getBooksToLoan(search = ''): Observable<{data:IBook[]}>{
-    return this._httpClient.get<{data: IBook[]}>(`${this.apiUrl}/books`, {
-      params: {
-        search,
-        status: 'Disponível'
-      }
-    });
-  }
 }

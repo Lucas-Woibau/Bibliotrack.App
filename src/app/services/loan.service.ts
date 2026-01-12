@@ -2,9 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { ILoan } from '../models/ILoan';
 import { Observable } from 'rxjs';
-import { ILoanDetails } from '../models/ILoanDetails';
-import { ILoanUpdateInput } from '../models/ILoanUpdateInput';
-import { ILoanAddInput } from '../models/ILoanAddInput';
 
 @Injectable({
   providedIn: 'root'
@@ -20,16 +17,16 @@ export class LoanService {
     });
   }
 
-  getLoanById(id:number):Observable<{data:ILoanDetails}>{
-    return this._httpClient.get<{data:ILoanDetails}>(`${this.apiUrl}/loans/${id}`);
+  getLoanById(id:number):Observable<{data:ILoan}>{
+    return this._httpClient.get<{data:ILoan}>(`${this.apiUrl}/loans/${id}`);
   }
 
-  addLoan(loan: Partial<ILoanAddInput>): Observable<{data:ILoanAddInput}>{
-    return this._httpClient.post<{data: ILoanAddInput}>(`${this.apiUrl}/loans/`, loan);
+  addLoan(loan: Partial<ILoan>): Observable<{data:ILoan}>{
+    return this._httpClient.post<{data: ILoan}>(`${this.apiUrl}/loans/`, loan);
   }
 
-  updateLoan(idLoan: number, payload: ILoanUpdateInput) {
-    return this._httpClient.put(`${this.apiUrl}/loans/${idLoan}`, payload);
+  updateLoan(loan: { idLoan: number & Partial<ILoan>}) {
+    return this._httpClient.put(`${this.apiUrl}/loans/${loan.idLoan}`, loan);
   }
 
   deleteLoan(id:number): Observable<void>{

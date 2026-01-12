@@ -78,19 +78,18 @@ export class LoansEditComponent implements OnInit{
   saveLoan() {
     if (this.loanForm.invalid) return;
 
-    const payload = {
-      idLoan: this.loanId,
-      idBook: this.loanForm.value.idBook,
-      bookTitle: this.loanForm.value.bookTitle,
-      personName: this.loanForm.value.personName,
+    const updatedLoan = {
+      idLoan: Number(this.loanId),
+      idBook: this.loanForm.get('idBook')?.value,
+      bookTitle: this.loanForm.get('bookTitle')?.value,
+      personName: this.loanForm.get('personName')?.value,
 
-      loanDate: parseDateToIso(this.loanForm.value.loanDateShort),
-      expectedReturnBook: parseDateToIso(this.loanForm.value.expectedReturnBookDateShort),
-      returnDate: parseDateToIso(this.loanForm.value.returnDateShort)
+      loanDate: parseDateToIso(this.loanForm.get('loanDateShort')?.value),
+      expectedReturnBook: parseDateToIso(this.loanForm.get('expectedReturnBookDateShort')?.value),
+      returnDate: parseDateToIso(this.loanForm.get('returnDateShort')?.value)
 };
 
-    console.log(payload);
-    this._loanService.updateLoan(this.loanId, payload).subscribe({
+    this._loanService.updateLoan(updatedLoan).subscribe({
     next: () => {
       this.snackBar.openFromComponent(SuccessSnackbarComponent, {
         data: { message: 'Livro atualizado com sucesso!' },
