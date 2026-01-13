@@ -1,5 +1,4 @@
-<form [formGroup]="loanForm"
-  (ngSubmit)="saveLoan()">
+<form [formGroup]="loanForm" (ngSubmit)="saveLoan()">
   <div class="border-0 rounded-4 shadow-lg bg-white overflow-hidden">
     <div
       class="d-flex justify-content-between align-items-center px-4 py-3 border-bottom bg-primary-subtle"
@@ -18,16 +17,36 @@
     </div>
 
     <div class="px-4 py-4">
-      <div class="mb-3">
-        <div class="small text-secondary fw-semibold mb-1">
-          Livro
-          <input
-            type="text"
-            class="form-control form-control-lg fw-semibold"
-            formControlName="bookTitle"
-            readonly
-          />
-        </div>
+      <div class="mb-3 position-relative">
+        <div class="small text-secondary fw-semibold mb-1">Livro</div>
+
+        <input
+          type="text"
+          class="form-control form-control-lg fw-semibold"
+          placeholder="Pesquisar livro"
+          [formControl]="bookSearchControl"
+          (focus)="openDropdown()"
+        />
+
+        @if (showDropdown) {
+        <ul
+          class="list-group position-absolute start-0 w-100 shadow rounded-3 mt-1 z-3"
+          style="max-height: 240px; overflow-y: auto"
+        >
+          @if (filteredBooks.length === 0) {
+          <li class="list-group-item text-secondary">
+            Nenhum livro encontrado
+          </li>
+          } @for (book of filteredBooks; track book.id) {
+          <li
+            class="list-group-item list-group-item-action fw-semibold"
+            (click)="selectBook(book)"
+          >
+            {{ book.title }}
+          </li>
+          }
+        </ul>
+        }
       </div>
 
       <div class="mb-3">
