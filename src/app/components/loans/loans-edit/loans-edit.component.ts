@@ -67,7 +67,7 @@ export class LoansEditComponent implements OnInit {
   }
 
   setBookTitleById(idBook: number) {
-    const book = this.books.find((b) => b.id === idBook);
+    const book = this.books.find((b) => b.id == idBook);
 
     if (book) {
       this.bookSearchControl.setValue(book.title, { emitEvent: false });
@@ -86,6 +86,10 @@ export class LoansEditComponent implements OnInit {
           expectedReturnBookDateShort: res.data.expectedReturnBookDateShort,
           returnDateShort: res.data.returnDateShort,
         });
+
+        if (this.books.length > 0) {
+          this.setBookTitleById(this.selectedBookId);
+        }
       },
       error: () => {
         this.snackBar.openFromComponent(ErrorSnackbarComponent, {
