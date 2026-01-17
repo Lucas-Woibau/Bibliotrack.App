@@ -1,4 +1,12 @@
-import { Component, Inject, inject, OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  HostListener,
+  Inject,
+  inject,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -15,6 +23,7 @@ import { SuccessSnackbarComponent } from '../../snackbar-messages/snackbar-succe
 import { parseDateToIso } from '../../../utils/data.utils';
 import { IBook } from '../../../models/IBook';
 import { BookService } from '../../../services/book.service';
+import { ToCamelCase } from '../../../utils/toCamelCase';
 
 @Component({
   selector: 'app-loans-edit',
@@ -40,9 +49,11 @@ export class LoansEditComponent implements OnInit {
   bookSearchControl = new FormControl('');
   showDropdown = false;
 
+  @ViewChild('dropdownContainer') dropdownContainer!: ElementRef;
+
   constructor(
     public dialogRef: MatDialogRef<LoansEditComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: { id: number }
+    @Inject(MAT_DIALOG_DATA) public data: { id: number },
   ) {}
 
   ngOnInit(): void {
@@ -60,14 +71,14 @@ export class LoansEditComponent implements OnInit {
     this.loanForm = this.fb.group({
       idBook: [``],
       personName: [``],
-      loanDateShort: [``],
-      expectedReturnBookDateShort: [``],
-      returnDateShort: [``],
+      loanDate: [``],
+      expectedReturnBook: [``],
+      returnDate: [``],
     });
   }
 
   setBookTitleById(idBook: number) {
-    const book = this.books.find((b) => b.id == idBook);
+    const book = this.books.find((b) => b.id === idBook);
 
     if (book) {
       this.bookSearchControl.setValue(book.title, { emitEvent: false });
@@ -82,11 +93,10 @@ export class LoansEditComponent implements OnInit {
         this.loanForm.patchValue({
           idBook: res.data.idBook,
           personName: res.data.personName,
-          loanDateShort: res.data.loanDateShort,
-          expectedReturnBookDateShort: res.data.expectedReturnBookDateShort,
-          returnDateShort: res.data.returnDateShort,
+          loanDate: res.data.loanDateShort,
+          expectedReturnBook: res.data.expectedReturnBookDateShort,
+          returnDate: res.data.returnDateShort,
         });
-
         if (this.books.length > 0) {
           this.setBookTitleById(this.selectedBookId);
         }
@@ -102,18 +112,21 @@ export class LoansEditComponent implements OnInit {
   }
 
   saveLoan() {
-    if (this.loanForm.invalid) return;
+    if (this.loanForm.invalid) {
+      this.loanForm.markAllAsTouched();
+      return;
+    }
 
     const updatedLoan = {
       idLoan: Number(this.loanId),
       idBook: this.loanForm.get('idBook')?.value,
       personName: this.loanForm.get('personName')?.value,
 
-      loanDate: parseDateToIso(this.loanForm.get('loanDateShort')?.value),
+      loanDate: parseDateToIso(this.loanForm.get('loanDate')?.value),
       expectedReturnBook: parseDateToIso(
-        this.loanForm.get('expectedReturnBookDateShort')?.value
+        this.loanForm.get('expectedReturnBook')?.value,
       ),
-      returnDate: parseDateToIso(this.loanForm.get('returnDateShort')?.value),
+      returnDate: parseDateToIso(this.loanForm.get('returnDate')?.value),
     };
 
     this._loanService.updateLoan(updatedLoan).subscribe({
@@ -130,7 +143,25 @@ export class LoansEditComponent implements OnInit {
       },
 
       error: (err) => {
-        console.error(err);
+        if (err.status === 400 && err.error?.errors) {
+          const errors = err.error.errors;
+
+          Object.keys(errors).forEach((apiField) => {
+            const formField = ToCamelCase(apiField);
+            const control = this.loanForm.get(formField);
+
+            if (control) {
+              control.setErrors({
+                ...control.errors,
+                apiError: errors[apiField][0],
+              });
+
+              control.markAsTouched();
+            }
+          });
+
+          return;
+        }
 
         this.snackBar.openFromComponent(ErrorSnackbarComponent, {
           data: {
@@ -169,5 +200,18 @@ export class LoansEditComponent implements OnInit {
     this.bookSearchControl.setValue(book.title, { emitEvent: false });
     this.loanForm.patchValue({ idBook: book.id });
     this.showDropdown = false;
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: MouseEvent) {
+    if (!this.dropdownContainer) return;
+
+    const clickedInside = this.dropdownContainer.nativeElement.contains(
+      event.target,
+    );
+
+    if (!clickedInside) {
+      this.showDropdown = false;
+    }
   }
 }

@@ -13,9 +13,15 @@ export class ModalConfimationComponent{
     @Inject(MAT_DIALOG_DATA)
     public data: {
       title?: string;
+      titleColor?: string;
       message?: string;
       confirmText?: string;
       cancelText?: string;
+      icon?: string;
+      iconColor?: string;
+      textColor?: string;
+      bgColor?: string;
+      btnBgColor?: string;
     }
   ) {}
 

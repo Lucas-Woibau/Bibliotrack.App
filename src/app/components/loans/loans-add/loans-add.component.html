@@ -17,7 +17,7 @@
     </div>
 
     <div class="px-4 py-4">
-      <div class="mb-3 position-relative">
+      <div class="mb-3 position-relative" #dropdownContainer>
         <div class="small text-secondary fw-semibold mb-1">Livro</div>
 
         <input
@@ -74,6 +74,11 @@
               [dropSpecialCharacters]="false"
               inputmode="numeric"
             />
+            @if (loanForm.get('loanDate')?.errors?.['apiError']) {
+            <div class="text-danger small mt-1">
+              {{ loanForm.get('loanDate')?.errors?.['apiError'] }}
+            </div>
+            }
           </div>
 
           <div class="col-md-6">
@@ -90,6 +95,11 @@
               [dropSpecialCharacters]="false"
               inputmode="numeric"
             />
+            @if (loanForm.get('expectedReturnBook')?.errors?.['apiError']) {
+            <div class="text-danger small mt-1">
+              {{ loanForm.get('expectedReturnBook')?.errors?.['apiError'] }}
+            </div>
+            }
           </div>
         </div>
       </div>

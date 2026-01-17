@@ -32,4 +32,8 @@ export class LoanService {
   deleteLoan(id:number): Observable<void>{
     return this._httpClient.delete<void>(`${this.apiUrl}/loans/${id}`);
   }
+
+  markAsReturned(id:number): Observable<void>{
+    return this._httpClient.put<void>(`${this.apiUrl}/loans/${id}/return`,{});
+  }
 }

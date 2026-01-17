@@ -46,6 +46,46 @@ export class LoansListComponent {
     this.search$.next(value);
   }
 
+  openMarkAsReturnedModal(id: number){
+    const dialogRef = this.dialog.open(ModalConfimationComponent, {
+      disableClose: true,
+      width: '420px',
+      maxWidth: '95vw',
+      autoFocus: false,
+      enterAnimationDuration: '250ms',
+      exitAnimationDuration: '150ms',
+      data: {
+        title: 'Confirmar retorno',
+        message: 'Tem certeza que deseja marcar esse empréstimo como devolvido?',
+        confirmText: 'Devolver',
+        cancelText: 'Cancelar',
+        titleColor: 'text-success',
+        icon: 'fa-check-circle',
+        iconColor: 'text-success',
+        textColor: 'text-light',
+        bgColor: 'bg-success-subtle',
+        btnBgColor: 'bg-success'
+      }
+    });
+
+    dialogRef.afterClosed().subscribe(confirmed => {
+      if (confirmed === true) {
+        this._loanService.markAsReturned(id).subscribe({
+          next: () => {
+            this.snackBar.openFromComponent(SuccessSnackbarComponent, {
+              data: {message: 'Empréstimo devolvido com sucesso!'},
+              duration: 4000,
+              horizontalPosition: 'right',
+              verticalPosition: 'bottom',
+              panelClass: ['custom-snackbar']
+            });
+            this.loadLoans('');
+          }
+        });
+      }
+    });
+  }
+
   openLoanDetailsModal(id: number){
     this.dialog.open(LoanDetailsComponent,{
       data: { id: id },
@@ -105,7 +145,13 @@ export class LoansListComponent {
         title: 'Confirmar exclusão',
         message: 'Tem certeza que deseja excluir esse empréstimo?',
         confirmText: 'Excluir',
-        cancelText: 'Cancelar'
+        cancelText: 'Cancelar',
+        titleColor: 'text-danger',
+        icon: 'fa-trash-can',
+        iconColor: 'text-danger',
+        textColor: 'text-light',
+        bgColor: 'bg-danger-subtle',
+        btnBgColor: 'bg-danger'
       }
     });
 

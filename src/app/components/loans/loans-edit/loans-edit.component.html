@@ -16,7 +16,7 @@
       ></button>
     </div>
 
-    <div class="px-4 py-4">
+    <div class="px-4 py-4" #dropdownContainer>
       <div class="mb-3 position-relative">
         <div class="small text-secondary fw-semibold mb-1">Livro</div>
 
@@ -69,13 +69,18 @@
             <input
               class="form-control form-control-lg fw-semibold"
               type="text"
-              formControlName="loanDateShort"
+              formControlName="loanDate"
               placeholder="dd/MM/aaaa"
               mask="00/00/0000"
               [showMaskTyped]="true"
               [dropSpecialCharacters]="false"
               inputmode="numeric"
             />
+            @if (loanForm.get('loanDate')?.errors?.['apiError']) {
+            <div class="text-danger small mt-1">
+              {{ loanForm.get('loanDate')?.errors?.['apiError'] }}
+            </div>
+            }
           </div>
         </div>
       </div>
@@ -87,13 +92,18 @@
             <input
               type="text"
               class="form-control form-control-lg fw-semibold"
-              formControlName="expectedReturnBookDateShort"
+              formControlName="expectedReturnBook"
               placeholder="dd/MM/aaaa"
               mask="00/00/0000"
               [showMaskTyped]="true"
               [dropSpecialCharacters]="false"
               inputmode="numeric"
             />
+            @if (loanForm.get('expectedReturnBook')?.errors?.['apiError']) {
+            <div class="text-danger small mt-1">
+              {{ loanForm.get('expectedReturnBook')?.errors?.['apiError'] }}
+            </div>
+            }
           </div>
 
           <div class="col-md-6">
@@ -101,13 +111,18 @@
             <input
               type="text"
               class="form-control form-control-lg fw-semibold"
-              formControlName="returnDateShort"
+              formControlName="returnDate"
               placeholder="dd/MM/aaaa"
               mask="00/00/0000"
               [showMaskTyped]="true"
               [dropSpecialCharacters]="false"
               inputmode="numeric"
             />
+            @if (loanForm.get('returnDate')?.errors?.['apiError']) {
+            <div class="text-danger small mt-1">
+              {{ loanForm.get('returnDate')?.errors?.['apiError'] }}
+            </div>
+            }
           </div>
         </div>
       </div>
