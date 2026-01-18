@@ -96,6 +96,12 @@
             [showMaskTyped]="true"
             [dropSpecialCharacters]="false"
             inputmode="numeric"/>
+
+            @if (bookForm.get('registrationDate')?.errors?.['apiError']) {
+            <div class="text-danger small mt-1">
+              {{ bookForm.get('registrationDate')?.errors?.['apiError'] }}
+            </div>
+          }
         </div>
 
       </div>

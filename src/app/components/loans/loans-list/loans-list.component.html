@@ -106,5 +106,11 @@
         }
       </tbody>
     </table>
+    @if (searchInput.value && Loans.length === 0) {
+      <div class="text-center py-4 text-muted">
+        <i class="fa-solid fa-book-open-reader fa-2x mb-2"></i>
+        <p class="mb-0 fw-semibold">Nenhum empréstimo encontrado.</p>
+      </div>
+    }
   </div>
 </div>

@@ -7,6 +7,7 @@ import { ErrorSnackbarComponent } from '../../snackbar-messages/snackbar-error/e
 import { SuccessSnackbarComponent } from '../../snackbar-messages/snackbar-success/success-snackbar.component';
 import { NgxMaskDirective } from 'ngx-mask';
 import { parseDateToIso } from '../../../utils/data.utils';
+import { ToCamelCase } from '../../../utils/toCamelCase';
 
 @Component({
   selector: 'app-books-edit',
@@ -100,7 +101,25 @@ export class BooksEditComponent implements OnInit{
   },
 
   error: err => {
-    console.error(err);
+    if (err.status === 400 && err.error?.errors) {
+          const errors = err.error.errors;
+
+          Object.keys(errors).forEach((apiField) => {
+            const formField = ToCamelCase(apiField);
+            const control = this.bookForm.get(formField);
+
+            if (control) {
+              control.setErrors({
+                ...control.errors,
+                apiError: errors[apiField][0],
+              });
+
+              control.markAsTouched();
+            }
+          });
+
+          return;
+        }
 
     this.snackBar.openFromComponent(ErrorSnackbarComponent, {
       data: {

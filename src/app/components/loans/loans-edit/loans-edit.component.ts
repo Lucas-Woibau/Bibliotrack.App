@@ -11,8 +11,7 @@ import {
   FormBuilder,
   FormControl,
   FormGroup,
-  ReactiveFormsModule,
-  Validators,
+  ReactiveFormsModule
 } from '@angular/forms';
 import { NgxMaskDirective } from 'ngx-mask';
 import { LoanService } from '../../../services/loan.service';
