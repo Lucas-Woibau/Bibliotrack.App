@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { BookLoanNavComponent } from "../../book-loan-nav/book-loan-nav.component";
+import { BookLoanNavComponent } from '../../book-loan-nav/book-loan-nav.component';
 import { LoanService } from '../../../services/loan.service';
 import { ILoan } from '../../../models/ILoan';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
@@ -15,38 +15,36 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   selector: 'app-loans-list',
   imports: [BookLoanNavComponent],
   templateUrl: './loans-list.component.html',
-  styleUrl: './loans-list.component.css'
+  styleUrl: './loans-list.component.css',
 })
 export class LoansListComponent {
   private readonly _loanService = inject(LoanService);
-  Loans: ILoan[]=[];
+  Loans: ILoan[] = [];
   private dialog = inject(MatDialog);
   private search$ = new Subject<string>();
   private snackBar = inject(MatSnackBar);
 
-  ngOnInit(): void{
+  ngOnInit(): void {
     this.loadLoans('');
 
-    this.search$.pipe(
-      debounceTime(100),
-      distinctUntilChanged()
-    ).subscribe(search => this.loadLoans(search));
+    this.search$
+      .pipe(debounceTime(100), distinctUntilChanged())
+      .subscribe((search) => this.loadLoans(search));
 
     this.search$.next('');
   }
 
-  loadLoans(search: string){
-    this._loanService.getLoans(search).subscribe(
-    (response) => {
+  loadLoans(search: string) {
+    this._loanService.getLoans(search).subscribe((response) => {
       this.Loans = response.data;
-  });
+    });
   }
 
-  onSearch(value:string){
+  onSearch(value: string) {
     this.search$.next(value);
   }
 
-  openMarkAsReturnedModal(id: number){
+  openMarkAsReturnedModal(id: number) {
     const dialogRef = this.dialog.open(ModalConfimationComponent, {
       disableClose: true,
       width: '420px',
@@ -56,7 +54,8 @@ export class LoansListComponent {
       exitAnimationDuration: '150ms',
       data: {
         title: 'Confirmar retorno',
-        message: 'Tem certeza que deseja marcar esse empréstimo como devolvido?',
+        message:
+          'Tem certeza que deseja marcar esse empréstimo como devolvido?',
         confirmText: 'Devolver',
         cancelText: 'Cancelar',
         titleColor: 'text-success',
@@ -64,72 +63,72 @@ export class LoansListComponent {
         iconColor: 'text-success',
         textColor: 'text-light',
         bgColor: 'bg-success-subtle',
-        btnBgColor: 'bg-success'
-      }
+        btnBgColor: 'bg-success',
+      },
     });
 
-    dialogRef.afterClosed().subscribe(confirmed => {
+    dialogRef.afterClosed().subscribe((confirmed) => {
       if (confirmed === true) {
         this._loanService.markAsReturned(id).subscribe({
           next: () => {
             this.snackBar.openFromComponent(SuccessSnackbarComponent, {
-              data: {message: 'Empréstimo devolvido com sucesso!'},
+              data: { message: 'Empréstimo devolvido com sucesso!' },
               duration: 4000,
               horizontalPosition: 'right',
               verticalPosition: 'bottom',
-              panelClass: ['custom-snackbar']
+              panelClass: ['custom-snackbar'],
             });
             this.loadLoans('');
-          }
+          },
         });
       }
     });
   }
 
-  openLoanDetailsModal(id: number){
-    this.dialog.open(LoanDetailsComponent,{
+  openLoanDetailsModal(id: number) {
+    this.dialog.open(LoanDetailsComponent, {
       data: { id: id },
       disableClose: true,
       width: '520px',
       maxWidth: '95vw',
       autoFocus: false,
       enterAnimationDuration: '250ms',
-      exitAnimationDuration: '150ms'
+      exitAnimationDuration: '150ms',
     });
   }
 
-  openAddLoanModal(){
-    const dialogRef = this.dialog.open(LoansAddComponent,{
+  openAddLoanModal() {
+    const dialogRef = this.dialog.open(LoansAddComponent, {
       disableClose: true,
       width: '520px',
       maxWidth: '95vw',
       autoFocus: false,
       enterAnimationDuration: '250ms',
-      exitAnimationDuration: '150ms'
+      exitAnimationDuration: '150ms',
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if(result === true){
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
         this.loadLoans('');
-      };
+      }
     });
   }
 
-  openEditLoanModal(id: number){
-    const dialogRef = this.dialog.open(LoansEditComponent,{
+  openEditLoanModal(id: number) {
+    const dialogRef = this.dialog.open(LoansEditComponent, {
       data: { id },
       disableClose: true,
       width: '520px',
       maxWidth: '95vw',
       autoFocus: false,
       enterAnimationDuration: '250ms',
-      exitAnimationDuration: '150ms'
+      exitAnimationDuration: '150ms',
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if(result === true){
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result === true) {
         this.loadLoans('');
-      };
+      }
     });
   }
 
@@ -151,23 +150,32 @@ export class LoansListComponent {
         iconColor: 'text-danger',
         textColor: 'text-light',
         bgColor: 'bg-danger-subtle',
-        btnBgColor: 'bg-danger'
-      }
+        btnBgColor: 'bg-danger',
+      },
     });
 
-    dialogRef.afterClosed().subscribe(confirmed => {
+    dialogRef.afterClosed().subscribe((confirmed) => {
       if (confirmed === true) {
         this._loanService.deleteLoan(id).subscribe({
           next: () => {
             this.snackBar.openFromComponent(SuccessSnackbarComponent, {
-              data: {message: 'Empréstimo deletado com sucesso!'},
+              data: { message: 'Empréstimo deletado com sucesso!' },
               duration: 4000,
               horizontalPosition: 'right',
               verticalPosition: 'bottom',
-              panelClass: ['custom-snackbar']
+              panelClass: ['custom-snackbar'],
             });
             this.loadLoans('');
-          }
+          },
+          error: (err) => {
+            const message =
+              err?.error?.message || 'Não foi possível excluir o empréstimo.';
+
+            this.snackBar.open(message, 'Fechar', {
+              duration: 5000,
+              panelClass: ['snackbar-error'],
+            });
+          },
         });
       }
     });

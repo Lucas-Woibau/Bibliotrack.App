@@ -95,10 +95,13 @@
 
                 <button
                   class="btn-action text-danger"
+                  [disabled]="loan.status === 'Devolvido'"
                   title="Excluir"
                   (click)="openDeleteLoanModal(loan.id)"
                 >
-                  <i class="fa-solid fa-trash fa-lg"></i>
+                  <i class="fa-solid fa-trash fa-lg {{
+                      loan.status === 'Devolvido' ? 'text-secondary' : ''
+                    }}"></i>
                 </button>
               </div>
             </td>
