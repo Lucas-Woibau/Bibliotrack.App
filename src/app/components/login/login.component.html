@@ -1,3 +1,36 @@
-<p>
-  login works!
-</p>
+<div class="d-flex justify-content-center align-items-center min-vh-100 bg-light">
+  <form [formGroup]="loginForm" (ngSubmit)="login()" class="w-100" style="max-width: 420px;">
+    <div class="border-0 rounded-4 shadow bg-white overflow-hidden">
+
+      <div class="px-4 py-3 border-bottom bg-primary-subtle">
+        <div class="d-flex align-items-center gap-2">
+          <i class="fa-solid fa-right-to-bracket fs-4 text-primary"></i>
+          <h5 class="mb-0 fw-bold text-primary">Login</h5>
+        </div>
+      </div>
+
+      <div class="px-4 py-4">
+        <div class="mb-3">
+          <label class="small text-secondary fw-semibold mb-1">Email</label>
+          <input class="form-control form-control-lg" type="email" formControlName="email" />
+        </div>
+
+        <div class="mb-3">
+          <label class="small text-secondary fw-semibold mb-1">Senha</label>
+          <input class="form-control form-control-lg" type="password" formControlName="password" />
+        </div>
+
+        <div @if(errorMessage) class="text-danger small mt-2">
+          {{ errorMessage }}
+        </div>
+      </div>
+
+      <div class="px-4 py-3 border-top d-grid">
+        <button class="btn btn-primary btn-lg" type="submit" [disabled]="loginForm.invalid">
+          Entrar
+        </button>
+      </div>
+
+    </div>
+  </form>
+</div>

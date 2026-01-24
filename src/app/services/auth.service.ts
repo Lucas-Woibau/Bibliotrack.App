@@ -2,17 +2,12 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 
-interface LoginRequest {
-  email: string;
-  password: string;
-}
-
 interface LoginResponse {
-  success: boolean;
   data: {
     token: string;
   };
-  errors?: string[];
+  isSuccess: boolean;
+  message?: string[];
 }
 
 @Injectable({
@@ -21,28 +16,29 @@ interface LoginResponse {
 export class AuthService {
   private readonly _httpClient = inject(HttpClient);
   readonly apiUrl = 'https://localhost:7251/api';
+  private readonly TOKEN_KEY = 'token';
 
-  login(request: LoginRequest): Observable<LoginResponse> {
+  login(payload: { email: string; password: string }) {
     return this._httpClient
-      .post<LoginResponse>(`${this.apiUrl}/users/login`, request)
+      .post<LoginResponse>(`${this.apiUrl}/users/login`, payload)
       .pipe(
         tap((response) => {
-          if (response.success) {
-            localStorage.setItem('token', response.data.token);
+          if (response.isSuccess) {
+            localStorage.setItem(this.TOKEN_KEY, response.data.token);
           }
         }),
       );
   }
 
   logout() {
-    localStorage.removeItem('token');
+    localStorage.removeItem(this.TOKEN_KEY);
   }
 
   getToken(): string | null {
-    return localStorage.getItem('token');
+    return localStorage.getItem(this.TOKEN_KEY);
   }
 
-  isAuthenticated(): boolean {
+  isLoggedIn(): boolean {
     return !!this.getToken();
   }
 }
