@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class BookService {
   private readonly _httpClient = inject(HttpClient);
-  readonly apiUrl = 'https://localhost:7251/api';
+  readonly apiUrl = '/api';
 
   getBooks(search = ''): Observable<{data:IBook[]}>{
     return this._httpClient.get<{data: IBook[]}>(`${this.apiUrl}/books`, {

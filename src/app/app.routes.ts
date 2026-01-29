@@ -7,11 +7,12 @@ import { LoansAddComponent } from './components/loans/loans-add/loans-add.compon
 import { LoansEditComponent } from './components/loans/loans-edit/loans-edit.component';
 import { LoginComponent } from './components/login/login.component';
 import { AuthGuardService } from './services/auth-guard.service';
+import { guestGuard } from './services/guest-guard.service';
 
 export const routes: Routes = [
   {path: '', redirectTo: '/Livros', pathMatch: 'full'},
 
-  {path: 'Login', component: LoginComponent},
+  {path: 'Login', canActivate: [guestGuard], component: LoginComponent},
 
   {path: 'Livros', component: BooksListComponent, canActivate: [AuthGuardService]},
   {path: 'AdicionarLivro', component: BooksAddComponent, canActivate: [AuthGuardService]},

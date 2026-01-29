@@ -15,7 +15,7 @@ interface LoginResponse {
 })
 export class AuthService {
   private readonly _httpClient = inject(HttpClient);
-  readonly apiUrl = 'https://localhost:7251/api';
+  readonly apiUrl = '/api';
   private readonly TOKEN_KEY = 'token';
 
   login(payload: { email: string; password: string }) {

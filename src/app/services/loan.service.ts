@@ -9,7 +9,7 @@ import { Observable } from 'rxjs';
 export class LoanService {
 
   private readonly _httpClient = inject(HttpClient);
-  readonly apiUrl = 'https://localhost:7251/api';
+  readonly apiUrl = '/api';
 
   getLoans(search?:string): Observable<{data:ILoan[]}>{
     return this._httpClient.get<{data: ILoan[]}>(`${this.apiUrl}/loans`,{
