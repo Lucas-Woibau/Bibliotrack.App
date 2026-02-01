@@ -10,17 +10,16 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { guestGuard } from './services/guest-guard.service';
 
 export const routes: Routes = [
-  {path: '', redirectTo: '/Livros', pathMatch: 'full'},
+  {path: '', redirectTo: '/livros', pathMatch: 'full'},
 
-  {path: 'Login', canActivate: [guestGuard], component: LoginComponent},
+  {path: 'login', canActivate: [guestGuard], component: LoginComponent},
 
-  {path: 'Livros', component: BooksListComponent, canActivate: [AuthGuardService]},
-  {path: 'AdicionarLivro', component: BooksAddComponent, canActivate: [AuthGuardService]},
-  {path: 'EditarLivro', component: BooksEditComponent, canActivate: [AuthGuardService]},
+  {path: 'livros', component: BooksListComponent, canActivate: [AuthGuardService]},
+  {path: 'adicionar-livro', component: BooksAddComponent, canActivate: [AuthGuardService]},
+  {path: 'editar-livro', component: BooksEditComponent, canActivate: [AuthGuardService]},
+  {path: 'emprestimos', component: LoansListComponent, canActivate: [AuthGuardService]},
+  {path: 'adicionar-emprestimo', component: LoansAddComponent, canActivate: [AuthGuardService]},
+  {path: 'editar-emprestimo', component: LoansEditComponent, canActivate: [AuthGuardService]},
 
-  {path: 'Emprestimos', component: LoansListComponent, canActivate: [AuthGuardService]},
-  {path: 'AdicionarEmprestimo', component: LoansAddComponent, canActivate: [AuthGuardService]},
-  {path: 'EditarEmprestimo', component: LoansEditComponent, canActivate: [AuthGuardService]},
-
-  {path: '**', redirectTo: '/Login' }
+  {path: '**', redirectTo: '/login' }
 ];
