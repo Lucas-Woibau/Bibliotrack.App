@@ -28,9 +28,6 @@ export class AuthInterceptorService implements HttpInterceptor {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log('INTERCEPTOR RODOU', req.url);
-    console.log('ANEXANDO TOKEN', token?.slice(0, 20));
-
 
     return next.handle(authReq);
   }

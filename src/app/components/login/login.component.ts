@@ -33,7 +33,7 @@ export class LoginComponent {
     };
 
     this.authService.login(payload).subscribe({
-      next: () => this.router.navigate(['/Livros']),
+      next: () => this.router.navigate(['/livros']),
       error: () =>
         (this.errorMessage = 'Credenciais inválidas. Tente novamente.'),
     });
