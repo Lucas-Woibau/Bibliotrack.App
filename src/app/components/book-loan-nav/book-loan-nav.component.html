@@ -4,8 +4,7 @@
     <a
       class="nav-link text-success fw-semibold"
       routerLink="/livros"
-      routerLinkActive="active"
-      [routerLinkActiveOptions]="{ exact: true }">
+      [class.active]="isActive('/livros')">
       Livros
     </a>
   </li>
@@ -14,8 +13,7 @@
     <a
       class="nav-link text-primary fw-semibold"
       routerLink="/emprestimos"
-      routerLinkActive="active"
-      [routerLinkActiveOptions]="{ exact: true }">
+      [class.active]="isActive('/emprestimos')">
       Empréstimos
     </a>
   </li>
