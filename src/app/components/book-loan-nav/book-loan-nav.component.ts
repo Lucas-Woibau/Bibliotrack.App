@@ -23,6 +23,13 @@ export class BookLoanNavComponent{
    }
 
   isActive(route: string): boolean {
-    return this.router.url === route;
+    return this.currentUrl === this.normalize(route);
+  }
+
+  private normalize(url: string): string {
+    return url
+      .split('?')[0]
+      .replace(/\/+$/, '')
+      .toLowerCase();
   }
 }
