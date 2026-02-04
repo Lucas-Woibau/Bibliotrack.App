@@ -1,0 +1,10 @@
+.dialog-card{
+  display: flex;
+  flex-direction: column;
+  max-height: min(90vh, 720px);
+}
+
+.dialog-body{
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}

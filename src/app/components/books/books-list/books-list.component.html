@@ -29,46 +29,54 @@
       >
         <tr>
           <th class="px-4">Título</th>
-          <th>Autor</th>
-          <th style="width: 22%">Descrição</th>
-          <th class="text-center">Qtd</th>
-          <th>Registro</th>
-          <th>Catálogo</th>
-          <th>Status</th>
+          <th class="d-none d-lg-table-cell">Autor</th>
+          <th class="d-none d-lg-table-cell" style="width: 22%">Descrição</th>
+          <th class="text-center d-none d-lg-table-cell">Qtd</th>
+          <th class="d-none d-lg-table-cell">Registro</th>
+          <th class="d-none d-lg-table-cell">Catálogo</th>
+          <th class="d-none d-lg-table-cell">Status</th>
           <th class="text-center" style="width: 120px">Ações</th>
         </tr>
       </thead>
 
       <tbody class="bg-white">
         @for (book of Books; track book.id) {
-          <tr>
+          <tr
+            class="book-row"
+            [ngClass]="{
+              'row-available': book.status === 'Disponível',
+              'row-unavailable': book.status === 'Indisponível',
+            }"
+          >
             <td class="px-4 fw-semibold text-dark">{{ book.title }}</td>
 
-            <td>{{ book.author }}</td>
+            <td class="d-none d-lg-table-cell">{{ book.author }}</td>
 
-            <td class="text-muted text-truncate desc-col">
+            <td
+              class="text-muted text-truncate desc-col d-none d-lg-table-cell"
+            >
               {{ book.description }}
             </td>
 
-            <td class="text-center fw-semibold">
+            <td class="text-center fw-semibold d-none d-lg-table-cell">
               {{ book.quantity }}
             </td>
 
-            <td>{{ book.registrationDateShort }}</td>
+            <td class="d-none d-lg-table-cell">
+              {{ book.registrationDateShort }}
+            </td>
 
-            <td>{{ book.catalog }}</td>
+            <td class="d-none d-lg-table-cell">{{ book.catalog }}</td>
 
-            <td>
+            <td class="d-none d-lg-table-cell">
               <span
-                class="badge rounded-pill px-3 py-2 {{
-                  book.status === 'Disponível'
-                    ? 'bg-success-subtle text-success'
-                    : ''
-                }} {{
-                  book.status === 'Indisponível'
-                    ? 'bg-danger-subtle text-danger'
-                    : ''
-                }}"
+                class="badge rounded-pill px-3 py-2"
+                [ngClass]="{
+                  'bg-success-subtle text-success':
+                    book.status === 'Disponível',
+                  'bg-danger-subtle text-danger':
+                    book.status === 'Indisponível',
+                }"
               >
                 {{ book.status }}
               </span>

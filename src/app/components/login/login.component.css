@@ -1,0 +1,9 @@
+@media (max-width: 575px) {
+  form {
+    max-width: 100% !important;
+  }
+
+  .form-control-lg {
+    font-size: 1rem;
+  }
+}

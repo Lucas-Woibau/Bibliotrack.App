@@ -10,10 +10,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SuccessSnackbarComponent } from '../../snackbar-messages/snackbar-success/success-snackbar.component';
 import { BooksEditComponent } from '../books-edit/books-edit.component';
 import { IBook } from '../../../models/IBook';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-books-list',
-  imports: [BookLoanNavComponent],
+  imports: [BookLoanNavComponent, CommonModule],
   templateUrl: './books-list.component.html',
   styleUrl: './books-list.component.css',
 })

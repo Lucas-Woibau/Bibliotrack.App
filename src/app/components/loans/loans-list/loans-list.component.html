@@ -28,35 +28,40 @@
       >
         <tr>
           <th class="px-4">Livro</th>
-          <th>Pessoa</th>
-          <th style="width: 22%">Data de Empréstimo</th>
-          <th>Status</th>
+          <th class="d-none d-lg-table-cell">Pessoa</th>
+          <th class="d-none d-lg-table-cell">Data de Empréstimo</th>
+          <th class="d-none d-lg-table-cell">Status</th>
           <th class="text-center" style="width: 120px">Ações</th>
         </tr>
       </thead>
 
       <tbody class="bg-white">
         @for (loan of Loans; track loan.id) {
-          <tr>
-            <td class="px-4 fw-semibold text-dark">{{ loan.bookTitle }}</td>
+          <tr
+            class="loan-row"
+            [ngClass]="{
+              'row-loaned': loan.status === 'Emprestado',
+              'row-returned': loan.status === 'Devolvido',
+            }"
+          >
+            <td class="px-4 fw-semibold text-dark loan-title">
+              {{ loan.bookTitle }}
+            </td>
 
-            <td>{{ loan.personName }}</td>
+            <td class="d-none d-lg-table-cell">{{ loan.personName }}</td>
 
-            <td class="text-dark">
+            <td class="text-dark d-none d-lg-table-cell">
               {{ loan.loanDateShort }}
             </td>
 
-            <td>
+            <td class="d-none d-lg-table-cell">
               <span
-                class="badge rounded-pill px-3 py-2 {{
-                  loan.status === 'Emprestado'
-                    ? 'bg-primary-subtle text-primary'
-                    : ''
-                }} {{
-                  loan.status === 'Devolvido'
-                    ? 'bg-success-subtle text-success'
-                    : ''
-                }}"
+                class="badge rounded-pill px-3 py-2"
+                [ngClass]="{
+                  'bg-primary-subtle text-primary':
+                    loan.status === 'Emprestado',
+                  'bg-success-subtle text-success': loan.status === 'Devolvido',
+                }"
               >
                 {{ loan.status }}
               </span>
@@ -99,9 +104,11 @@
                   title="Excluir"
                   (click)="openDeleteLoanModal(loan.id)"
                 >
-                  <i class="fa-solid fa-trash fa-lg {{
+                  <i
+                    class="fa-solid fa-trash fa-lg {{
                       loan.status === 'Devolvido' ? 'text-secondary' : ''
-                    }}"></i>
+                    }}"
+                  ></i>
                 </button>
               </div>
             </td>

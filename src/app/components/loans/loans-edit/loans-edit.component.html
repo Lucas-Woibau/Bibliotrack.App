@@ -1,5 +1,5 @@
 <form [formGroup]="loanForm" (ngSubmit)="saveLoan()">
-  <div class="border-0 rounded-4 shadow-lg bg-white overflow-hidden">
+  <div class="border-0 rounded-4 shadow-lg bg-white overflow-hidden dialog-card">
     <div
       class="d-flex justify-content-between align-items-center px-4 py-3 border-bottom bg-primary-subtle"
     >
@@ -16,7 +16,7 @@
       ></button>
     </div>
 
-    <div class="px-4 py-4" #dropdownContainer>
+    <div class="px-4 py-4 dialog-body" #dropdownContainer>
       <div class="mb-3 position-relative">
         <div class="small text-secondary fw-semibold mb-1">Livro</div>
 

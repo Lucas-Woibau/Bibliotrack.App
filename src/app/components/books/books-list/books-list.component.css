@@ -51,3 +51,38 @@ a.btn {
   transform: scale(1.15);
   opacity: 0.85;
 }
+
+@media (max-width: 991.98px) {
+  .book-row {
+    transition: background 0.2s ease;
+  }
+
+  .row-available {
+    background-color: #e9f7ef;
+    border-left: 6px solid #198754;
+  }
+
+  .row-unavailable {
+    background-color: #fdecea;
+    border-left: 6px solid #dc3545;
+  }
+
+  .book-title {
+    font-size: 1.05rem;
+    padding: 1rem;
+  }
+}
+
+@media (min-width: 992px) {
+  .book-row {
+    background: transparent !important;
+    border-left: none !important;
+  }
+
+  .book-title {
+    padding: initial;
+    font-size: initial;
+  }
+}
+
+

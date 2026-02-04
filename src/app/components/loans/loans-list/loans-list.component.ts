@@ -10,10 +10,11 @@ import { LoansEditComponent } from '../loans-edit/loans-edit.component';
 import { ModalConfimationComponent } from '../../modal-confimation/modal-confimation.component';
 import { SuccessSnackbarComponent } from '../../snackbar-messages/snackbar-success/success-snackbar.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-loans-list',
-  imports: [BookLoanNavComponent],
+  imports: [BookLoanNavComponent, CommonModule],
   templateUrl: './loans-list.component.html',
   styleUrl: './loans-list.component.css',
 })

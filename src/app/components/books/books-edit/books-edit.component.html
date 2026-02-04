@@ -1,7 +1,7 @@
 <form
   [formGroup]="bookForm"
   (ngSubmit)="saveBook()"
-  class="border-0 rounded-4 shadow-lg bg-white overflow-hidden"
+  class="border-0 rounded-4 shadow-lg bg-white overflow-hidden dialog-card"
 >
   <div
     class="d-flex justify-content-between align-items-center px-4 py-3 border-bottom bg-primary-subtle text-primary"
@@ -19,7 +19,7 @@
     ></button>
   </div>
 
-  <div class="px-4 py-4">
+  <div class="px-4 py-4 dialog-body">
     <div class="mb-3">
       <div class="small text-secondary fw-semibold mb-1">Título</div>
       <input
