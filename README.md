@@ -1,59 +1,61 @@
-# DevFreelaApp
+# 📚 Bibliotrack App — Interface Web em Angular 19
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.19.
+O **Bibliotrack App** é a aplicação frontend do sistema Bibliotrack, responsável por fornecer uma interface moderna, responsiva e intuitiva para o gerenciamento de livros e empréstimos.
 
-## Development server
+Desenvolvido em **Angular 19**, o projeto segue boas práticas de arquitetura frontend, com componentização eficiente, navegação estruturada e integração completa com a API.
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
-```
+## 🚀 Funcionalidades Principais
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### 🔐 Autenticação
+- Tela de login com validações
+- Controle de sessão no frontend
+- Proteção de rotas autenticadas
 
-## Code scaffolding
+### 📖 Livros
+- Listagem de livros
+- Cadastro de novos livros
+- Edição de informações
+- Exclusão com regras de negócio refletidas da API
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+### 🔄 Empréstimos
+- Registro de empréstimos
+- Devolução de livros
+- Atualização automática da interface conforme estoque
+- Feedback visual de ações
 
-```bash
-ng generate component component-name
-```
+---
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 🧩 Estrutura do Projeto
 
-```bash
-ng generate --help
-```
+- **Components**: telas e componentes reutilizáveis  
+- **Services**: comunicação com a API REST  
+- **Guards**: controle de acesso às rotas  
+- **Models**: tipagens de dados  
+- **Routes**: navegação centralizada  
 
-## Building
+---
 
-To build the project run:
+## 🧰 Tecnologias Utilizadas
 
-```bash
-ng build
-```
+- Angular 19  
+- TypeScript  
+- Angular Router  
+- Reactive Forms  
+- RxJS  
+- Bootstrap (responsividade)  
+- Angular CLI  
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+---
 
-## Running unit tests
+## 📱 Responsividade
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+A interface foi desenvolvida para se adaptar a diferentes dispositivos:
 
-```bash
-ng test
-```
+- Desktop  
+- Notebook  
+- Tablet  
+- Smartphone  
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Garantindo usabilidade consistente em qualquer resolução.
