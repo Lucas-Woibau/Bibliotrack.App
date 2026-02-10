@@ -15,11 +15,7 @@ export const routes: Routes = [
   {path: 'login', canActivate: [guestGuard], component: LoginComponent},
 
   {path: 'livros', component: BooksListComponent, canActivate: [AuthGuardService]},
-  {path: 'adicionar-livro', component: BooksAddComponent, canActivate: [AuthGuardService]},
-  {path: 'editar-livro', component: BooksEditComponent, canActivate: [AuthGuardService]},
   {path: 'emprestimos', component: LoansListComponent, canActivate: [AuthGuardService]},
-  {path: 'adicionar-emprestimo', component: LoansAddComponent, canActivate: [AuthGuardService]},
-  {path: 'editar-emprestimo', component: LoansEditComponent, canActivate: [AuthGuardService]},
 
   {path: '**', redirectTo: '/login' }
 ];
