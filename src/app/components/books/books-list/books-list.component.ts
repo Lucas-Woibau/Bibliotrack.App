@@ -25,24 +25,64 @@ export class BooksListComponent {
   private search$ = new Subject<string>();
   private snackBar = inject(MatSnackBar);
 
-  ngOnInit() {
-    this.loadBooks('');
+  page = 1;
+  size = 10;
+  totalRecords = 0;
 
+  currentSearch = '';
+
+  ngOnInit() {
     this.search$
-      .pipe(debounceTime(100), distinctUntilChanged())
-      .subscribe((search) => this.loadBooks(search));
+      .pipe(debounceTime(150), distinctUntilChanged())
+      .subscribe((search) => {
+        this.page = 1;
+        this.loadBooks(search);
+      });
 
     this.search$.next('');
   }
 
+  get totalPages(): number {
+    const total = Number(this.totalRecords);
+    const size = Number(this.size);
+
+    if (!size || size <= 0) return 1;
+    if (!total || total <= 0) return 1;
+
+    return Math.max(1, Math.ceil(total / size));
+  }
+
   loadBooks(search: string) {
-    this._bookService.getBooks(search).subscribe((response) => {
-      this.Books = response.data;
-    });
+    this.currentSearch = search;
+
+    this._bookService
+      .getBooks(search, this.page, this.size)
+      .subscribe((response: any) => {
+        const d = response.data;
+
+        this.Books = d.items ?? d.Items ?? [];
+
+        this.totalRecords = Number(d.totalRecords ?? d.TotalRecords ?? 0);
+      });
   }
 
   onSearch(value: string) {
+    this.page = 1;
     this.search$.next(value);
+  }
+
+  nextPage() {
+    if (this.page < this.totalPages) {
+      this.page++;
+      this.loadBooks(this.currentSearch);
+    }
+  }
+
+  prevPage() {
+    if (this.page > 1) {
+      this.page--;
+      this.loadBooks(this.currentSearch);
+    }
   }
 
   openBookDetailsModal(id: number) {
@@ -124,7 +164,11 @@ export class BooksListComponent {
               verticalPosition: 'bottom',
               panelClass: ['custom-snackbar'],
             });
-            this.loadBooks('');
+            if (this.page > 1 && this.Books.length === 1) {
+              this.page--;
+            }
+
+            this.loadBooks(this.currentSearch);
           },
         });
       }

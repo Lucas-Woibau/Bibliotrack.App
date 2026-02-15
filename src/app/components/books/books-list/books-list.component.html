@@ -120,4 +120,16 @@
       </div>
     }
   </div>
+  <div class="d-flex justify-content-between align-items-center mt-3">
+  <small>Página {{page}} de {{totalPages}} — Total: {{totalRecords}}</small>
+
+  <div class="btn-group">
+    <button class="btn btn-outline-secondary" (click)="prevPage()" [disabled]="page === 1">
+      Anterior
+    </button>
+    <button class="btn btn-outline-secondary" (click)="nextPage()" [disabled]="page >= totalPages">
+      Próxima
+    </button>
+  </div>
+</div>
 </div>

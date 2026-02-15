@@ -182,8 +182,8 @@ export class LoansEditComponent implements OnInit {
 
   loadBooks(search: string) {
     this._bookService.getBooks(search).subscribe((response) => {
-      this.books = response.data;
-      this.filteredBooks = response.data;
+      this.books = response.data.items;
+      this.filteredBooks = response.data.items;
 
       if (this.selectedBookId) {
         this.setBookTitleById(this.selectedBookId);
