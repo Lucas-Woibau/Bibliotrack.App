@@ -28,7 +28,7 @@ export class BooksListComponent {
   page = 1;
   size = 10;
   totalRecords = 0;
-
+  pages: number[] = [];
   currentSearch = '';
 
   ngOnInit() {
@@ -63,6 +63,12 @@ export class BooksListComponent {
         this.Books = d.items ?? d.Items ?? [];
 
         this.totalRecords = Number(d.totalRecords ?? d.TotalRecords ?? 0);
+
+        this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+
+        if (this.page > this.totalPages) {
+          this.page = this.totalPages;
+        }
       });
   }
 

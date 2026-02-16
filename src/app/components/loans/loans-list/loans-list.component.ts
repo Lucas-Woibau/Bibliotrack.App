@@ -25,24 +25,70 @@ export class LoansListComponent {
   private search$ = new Subject<string>();
   private snackBar = inject(MatSnackBar);
 
-  ngOnInit(): void {
-    this.loadLoans('');
+  page = 1;
+  size = 10;
+  totalRecords = 0;
+  pages: number[] = [];
+  currentSearch = '';
 
+  ngOnInit(): void {
     this.search$
-      .pipe(debounceTime(100), distinctUntilChanged())
-      .subscribe((search) => this.loadLoans(search));
+      .pipe(debounceTime(150), distinctUntilChanged())
+      .subscribe((search) => {
+        this.page = 1;
+        this.loadLoans(search);
+      });
 
     this.search$.next('');
   }
 
+  get totalPages(): number {
+    const total = Number(this.totalRecords);
+    const size = Number(this.size);
+
+    if (!size || size <= 0) return 1;
+    if (!total || total <= 0) return 1;
+
+    return Math.max(1, Math.ceil(total / size));
+  }
+
   loadLoans(search: string) {
-    this._loanService.getLoans(search).subscribe((response) => {
-      this.Loans = response.data;
-    });
+    this.currentSearch = search;
+
+    this._loanService
+      .getLoans(search, this.page, this.size)
+      .subscribe((response: any) => {
+        const d = response.data;
+
+        this.Loans = d.items ?? d.Items ?? [];
+
+        this.totalRecords = Number(d.totalRecords ?? d.TotalRecords ?? 0);
+
+        this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
+
+        if (this.page > this.totalPages) {
+          this.page = this.totalPages;
+        }
+      });
   }
 
   onSearch(value: string) {
+    this.page = 1;
     this.search$.next(value);
+  }
+
+  nextPage() {
+    if (this.page < this.totalPages) {
+      this.page++;
+      this.loadLoans(this.currentSearch);
+    }
+  }
+
+  prevPage() {
+    if (this.page > 1) {
+      this.page--;
+      this.loadLoans(this.currentSearch);
+    }
   }
 
   openMarkAsReturnedModal(id: number) {
@@ -178,6 +224,11 @@ export class LoansListComponent {
             });
           },
         });
+        if (this.page > 1 && this.Loans.length === 1) {
+          this.page--;
+        }
+
+        this.loadLoans(this.currentSearch);
       }
     });
   }
