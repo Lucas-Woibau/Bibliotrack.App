@@ -122,7 +122,7 @@
   </div>
   <nav class="d-flex justify-content-end align-items-center mt-3">
     <ul class="pagination">
-      <li class="page-item disabled">
+      <li class="page-item" [class.disabled]="page === 1">
         <button class="page-link" (click)="prevPage()" [disabled]="page === 1">
           Voltar
         </button>
@@ -133,7 +133,7 @@
         </button>
       </li>
 
-      <li class="page-item">
+      <li class="page-item" [class.disabled]="page === totalPages">
         <button class="page-link" (click)="nextPage()">Avançar</button>
       </li>
     </ul>

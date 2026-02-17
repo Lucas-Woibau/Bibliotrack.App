@@ -16,4 +16,8 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   padding: 0 !important;
 }
 
+button:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
 
