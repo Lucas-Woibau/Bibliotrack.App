@@ -1,2 +1,12 @@
 <app-navbar *ngIf="auth.isLoggedIn()"></app-navbar>
-<router-outlet></router-outlet>
+<div class="layout-wrapper">
+  <main class="content-area">
+    <router-outlet></router-outlet>
+  </main>
+
+  <footer class="footer bg-dark">
+    Desenvolvido por Lucas Woibau © 2026 |
+    <a href="https://youtube.com/@dewoibau" target="_blank">YouTube</a> |
+    <a href="https://linkedin.com/in/lucaswoibau" target="_blank">LinkedIn</a>
+  </footer>
+</div>

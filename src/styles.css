@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
+html, body { height: 100%; margin:0; }
 
-html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .custom-snackbar.mat-mdc-snack-bar-container {
@@ -47,6 +47,22 @@ button:focus {
 
 .footer-links a:hover {
   color: #fff;
+}
+
+.layout-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.content-area {
+  flex: 1;
+}
+
+.footer {
+  color: white;
+  text-align: center;
+  padding: 14px 0;
 }
 
 
