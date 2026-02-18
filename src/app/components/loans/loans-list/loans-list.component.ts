@@ -11,6 +11,7 @@ import { ModalConfimationComponent } from '../../modal-confimation/modal-confima
 import { SuccessSnackbarComponent } from '../../snackbar-messages/snackbar-success/success-snackbar.component';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommonModule } from '@angular/common';
+import { getVisiblePages } from '../../../utils/pagination.util';
 
 @Component({
   selector: 'app-loans-list',
@@ -232,4 +233,9 @@ export class LoansListComponent {
       }
     });
   }
+
+  visiblePages(): number[] {
+    return getVisiblePages(this.page, this.totalPages);
+  }
+
 }

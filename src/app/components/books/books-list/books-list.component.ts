@@ -11,6 +11,7 @@ import { SuccessSnackbarComponent } from '../../snackbar-messages/snackbar-succe
 import { BooksEditComponent } from '../books-edit/books-edit.component';
 import { IBook } from '../../../models/IBook';
 import { CommonModule } from '@angular/common';
+import { getVisiblePages } from '../../../utils/pagination.util';
 
 @Component({
   selector: 'app-books-list',
@@ -179,5 +180,9 @@ export class BooksListComponent {
         });
       }
     });
+  }
+
+  visiblePages(): number[] {
+    return getVisiblePages(this.page, this.totalPages);
   }
 }

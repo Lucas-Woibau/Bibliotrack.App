@@ -48,7 +48,7 @@
               {{ loan.bookTitle }}
             </td>
 
-            <td class="d-none d-lg-table-cell">{{ loan.personName }}</td>
+            <td class="d-none d-lg-table-cell truncate">{{ loan.personName }}</td>
 
             <td class="text-dark d-none d-lg-table-cell">
               {{ loan.loanDateShort }}
@@ -123,14 +123,20 @@
       </div>
     }
   </div>
-  <nav class="d-flex justify-content-end align-items-center mt-3">
-    <ul class="pagination">
+  <nav
+    class="d-flex justify-content-end justify-content-md-end justify-content-center align-items-center mt-3"
+  >
+    <ul class="pagination flex-wrap gap-1 mb-0">
       <li class="page-item" [class.disabled]="page === 1">
         <button class="page-link" (click)="prevPage()" [disabled]="page === 1">
           Voltar
         </button>
       </li>
-      <li class="page-item" *ngFor="let p of pages" [class.active]="page === p">
+      <li
+        class="page-item"
+        *ngFor="let p of visiblePages()"
+        [class.active]="page === p"
+      >
         <button class="page-link" (click)="page = p; loadLoans(currentSearch)">
           {{ p }}
         </button>
@@ -142,5 +148,3 @@
     </ul>
   </nav>
 </div>
-
-#
