@@ -31,6 +31,16 @@
     </div>
 
     <div class="mb-4">
+      <div class="small text-secondary fw-semibold mb-1">Autor</div>
+      <input
+        type="text"
+        class="form-control fw-semibold"
+        formControlName="author"
+        placeholder="Nome do autor"
+      />
+    </div>
+
+    <div class="mb-4">
       <div class="small text-secondary fw-semibold mb-1">Descrição</div>
       <textarea
         rows="3"
@@ -43,16 +53,6 @@
 
     <div class="rounded-3 border bg-white p-3">
       <div class="row g-3">
-        <div class="col-md-6">
-          <div class="small text-secondary mb-1">Autor</div>
-          <input
-            type="text"
-            class="form-control fw-semibold"
-            formControlName="author"
-            placeholder="Nome do autor"
-          />
-        </div>
-
         <div class="col-md-6">
           <div class="small text-secondary mb-1">Catálogo</div>
           <input
@@ -69,6 +69,16 @@
             type="number"
             class="form-control fw-semibold"
             formControlName="quantity"
+            min="0"
+          />
+        </div>
+
+        <div class="col-md-6">
+          <div class="small text-secondary mb-1">Nº de Registro</div>
+          <input
+            type="number"
+            class="form-control fw-semibold"
+            formControlName="registrationNumber"
             min="0"
           />
         </div>

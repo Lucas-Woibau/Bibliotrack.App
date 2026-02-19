@@ -21,17 +21,21 @@
     </a>
   </div>
 
-  <div class="table-responsive shadow-lg rounded-4 border overflow-hidden">
+  <div class="shadow-lg rounded-4 border">
+    <div
+      class="table-responsive px-3"
+      style="overflow-x: auto; overflow-y: hidden"
+    >
     <table class="table table-hover table-nowrap align-middle mb-0 w-100">
       <thead
         class="bg-body-tertiary text-secondary text-uppercase small position-sticky top-0 z-1"
       >
-        <tr>
-          <th class="px-4">Livro</th>
+        <tr class="text-center">
+          <th class="px-3">Livro</th>
           <th class="d-none d-lg-table-cell">Pessoa</th>
-          <th class="d-none d-lg-table-cell">Data de Empréstimo</th>
+          <th class="d-none d-lg-table-cell">Empréstimo</th>
           <th class="d-none d-lg-table-cell">Status</th>
-          <th class="text-center" style="width: 120px">Ações</th>
+          <th style="width: 120px">Ações</th>
         </tr>
       </thead>
 
@@ -44,23 +48,23 @@
               'row-returned': loan.status === 'Devolvido',
             }"
           >
-            <td class="px-4 fw-semibold text-dark loan-title">
+            <td class="truncate loan-title">
               {{ loan.bookTitle }}
             </td>
 
-            <td class="d-none d-lg-table-cell truncate">{{ loan.personName }}</td>
+            <td class="d-none d-lg-table-cell truncate col-person text-center">{{ loan.personName }}</td>
 
-            <td class="text-dark d-none d-lg-table-cell">
+            <td class="d-none d-lg-table-cell col-date truncate text-center">
               {{ loan.loanDateShort }}
             </td>
 
-            <td class="d-none d-lg-table-cell">
+            <td class="d-none d-lg-table-cell col-status text-center truncate">
               <span
-                class="badge rounded-pill px-3 py-2"
+                class="badge px-2 py-2"
                 [ngClass]="{
-                  'bg-primary-subtle text-primary':
+                  'bg-primary-subtle text-primary text-uppercase':
                     loan.status === 'Emprestado',
-                  'bg-success-subtle text-success': loan.status === 'Devolvido',
+                  'bg-success-subtle text-success text-uppercase': loan.status === 'Devolvido',
                 }"
               >
                 {{ loan.status }}
@@ -122,6 +126,7 @@
         <p class="mb-0 fw-semibold">Nenhum empréstimo encontrado.</p>
       </div>
     }
+    </div>
   </div>
   <nav
     class="d-flex justify-content-end justify-content-md-end justify-content-center align-items-center mt-3"

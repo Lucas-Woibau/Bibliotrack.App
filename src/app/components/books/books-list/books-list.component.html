@@ -31,15 +31,16 @@
         <thead
           class="bg-body-tertiary text-secondary text-uppercase small position-sticky top-0 z-1"
         >
-          <tr>
+          <tr class="text-center">
             <th class="px-3">Título</th>
             <th class="d-none d-lg-table-cell">Autor</th>
             <th class="d-none d-lg-table-cell" style="width: 22%">Descrição</th>
-            <th class="text-center d-none d-lg-table-cell">Qtd</th>
             <th class="d-none d-lg-table-cell">Registro</th>
+            <th class="d-none d-lg-table-cell">Data</th>
             <th class="d-none d-lg-table-cell">Catálogo</th>
+            <th class="d-none d-lg-table-cell">Qtd</th>
             <th class="d-none d-lg-table-cell">Status</th>
-            <th class="text-center" style="width: 120px">Ações</th>
+            <th style="width: 120px">Ações</th>
           </tr>
         </thead>
 
@@ -71,7 +72,7 @@
               </td>
 
               <td class="d-none d-lg-table-cell col-qtd text-center truncate">
-                {{ book.quantity }}
+                {{ book.registrationNumber }}
               </td>
 
               <td class="d-none d-lg-table-cell col-date truncate">
@@ -79,19 +80,25 @@
               </td>
 
               <td
-                class="d-none d-lg-table-cell truncate col-cat truncate"
+                class="d-none d-lg-table-cell truncate col-cat text-center"
                 title="{{ book.catalog }}"
               >
                 {{ book.catalog }}
               </td>
 
-              <td class="d-none d-lg-table-cell col-status truncate">
+              <td class="d-none d-lg-table-cell col-date truncate text-center">
+                {{ book.quantity }}
+              </td>
+
+              <td
+                class="d-none d-lg-table-cell col-status text-center truncate"
+              >
                 <span
-                  class="badge rounded-pill px-3 py-2"
+                  class="badge px-2 py-2"
                   [ngClass]="{
-                    'bg-success-subtle text-success':
+                    'bg-success-subtle text-success text-uppercase':
                       book.status === 'Disponível',
-                    'bg-danger-subtle text-danger':
+                    'bg-danger-subtle text-danger text-uppercase':
                       book.status === 'Indisponível',
                   }"
                 >

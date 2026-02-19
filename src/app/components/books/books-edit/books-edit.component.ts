@@ -47,6 +47,7 @@ export class BooksEditComponent implements OnInit{
       author: [``],
       catalog: [``],
       quantity: [0, [Validators.required, Validators.min(0)]],
+      registrationNumber: [null],
       registrationDate: [``]
     })
   }
@@ -60,6 +61,7 @@ export class BooksEditComponent implements OnInit{
           author: res.data.author,
           catalog: res.data.catalog,
           quantity: res.data.quantity,
+          registrationNumber: res.data.registrationNumber,
           registrationDate: res.data.registrationDateShort
       });
       },
@@ -83,6 +85,7 @@ export class BooksEditComponent implements OnInit{
     author: this.bookForm.get('author')?.value,
     catalog: this.bookForm.get('catalog')?.value,
     quantity: this.bookForm.get('quantity')?.value,
+    registrationNumber: this.bookForm.get('registrationNumber')?.value,
     registrationDate: parseDateToIso(
     this.bookForm.get('registrationDate')?.value)
   };
