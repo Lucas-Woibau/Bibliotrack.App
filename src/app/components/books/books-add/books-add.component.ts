@@ -29,7 +29,7 @@ export class BooksAddComponent {
     author: [``],
     catalog: [``],
     quantity: [1, [Validators.required, Validators.min(1)]],
-    registrationNumber: [null],
+    registrationCode: [``],
     registrationDate: [``],
   });
 
@@ -42,7 +42,7 @@ export class BooksAddComponent {
       author: this.bookForm.get('author')?.value,
       catalog: this.bookForm.get('catalog')?.value,
       quantity: this.bookForm.get('quantity')?.value,
-      registrationNumber: this.bookForm.get('registrationNumber')?.value,
+      registrationCode: this.bookForm.get('registrationCode')?.value,
       registrationDate: parseDateToIso(
         this.bookForm.get('registrationDate')?.value ?? null,
       ),

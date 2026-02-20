@@ -4,7 +4,7 @@ export interface IBook {
   author?:string,
   description?:string,
   quantity?: number,
-  registrationNumber?:number,
+  registrationCode?:string,
   registrationDateShort?: string | null,
   catalog?:string,
   status: string
