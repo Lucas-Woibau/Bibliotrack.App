@@ -34,9 +34,11 @@
           />
         </div>
 
-        <div @if(errorMessage) class="text-danger small mt-2">
-          {{ errorMessage }}
-        </div>
+        @if (errorMessage) {
+          <div class="text-danger small mt-2">
+            {{ errorMessage }}
+          </div>
+        }
       </div>
 
       <div class="px-3 px-sm-4 py-3 border-top d-grid">
