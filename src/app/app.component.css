@@ -1,3 +1,11 @@
+.layout-wrapper {
+  padding-top: 0;
+}
+
+app-navbar + .layout-wrapper {
+  padding-top: 70px;
+}
+
 .footer {
   font-size: 0.9rem;
 }
