@@ -1,21 +1,113 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary bg-dark border-bottom border-body" data-bs-theme="dark">
+<nav
+  class="navbar navbar-expand-lg bg-dark border-bottom border-secondary fixed-top"
+  data-bs-theme="dark"
+>
   <div class="container-fluid">
-    <a class="navbar-brand py-2" routerLink="/livros"><b>BIBLIOTRACK</b></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <a
+      class="navbar-brand d-flex align-items-center gap-2 py-2"
+      routerLink="/livros"
+    >
+      <img
+        src="assets/logo_bibliotrack.png"
+        alt="Logo Bibliotrack"
+        class="logo-navbar"
+      />
+      <span class="brand-title">IBLIOTRACK</span>
+      <span class="badge rounded-pill text-bg-secondary ms-2 d-none d-sm-inline"
+        >v1.0</span
+      >
+    </a>
+
+    <button
+      class="navbar-toggler d-lg-none border-0"
+      type="button"
+      data-bs-toggle="offcanvas"
+      data-bs-target="#offcanvasNavbar"
+      aria-controls="offcanvasNavbar"
+      aria-label="Abrir menu"
+    >
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle text-white" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <b>Admin</b>
+    <div class="collapse navbar-collapse d-none d-lg-flex">
+      <ul class="navbar-nav ms-auto align-items-center">
+        <li class="nav-item">
+          <a
+            class="nav-link text-white"
+            href="https://wa.me/5527999599903?text=Preciso%20de%20ajuda%20com%20o%20sistema%20Bibliotrack!"
+            target="_blank"
+            rel="noopener"
+          >
+            Ajuda
           </a>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li><a class="dropdown-item" (click)="logout()" style="cursor: pointer;">Sair</a></li>
-          </ul>
+        </li>
+
+        <li class="nav-item border-start border-secondary ms-3 ps-3">
+          <a
+            class="nav-link text-white"
+            style="cursor: pointer"
+            (click)="logout()"
+          >
+            Sair
+          </a>
         </li>
       </ul>
+    </div>
+
+    <div
+      class="offcanvas offcanvas-end bg-dark text-white d-lg-none offcanvas-half"
+      tabindex="-1"
+      id="offcanvasNavbar"
+      aria-labelledby="offcanvasNavbarLabel"
+    >
+      <div class="offcanvas-header border-bottom border-secondary px-4">
+        <div class="d-flex flex-column">
+          <h5 class="offcanvas-title mb-0" id="offcanvasNavbarLabel">
+            Administrador
+          </h5>
+          <small class="text-secondary">Menu rápido</small>
+        </div>
+
+        <button
+          type="button"
+          class="btn-close btn-close-white"
+          data-bs-dismiss="offcanvas"
+          aria-label="Fechar"
+        ></button>
+      </div>
+
+      <div class="offcanvas-body d-flex flex-column px-4 py-3">
+        <a
+          class="menu-link"
+          href="https://wa.me/5527999599903?text=Preciso%20de%20ajuda%20com%20o%20sistema%20Bibliotrack!"
+          target="_blank"
+          rel="noopener"
+        >
+          <span class="menu-text"
+            ><b>Ajuda</b
+            ><small class="d-block text-secondary"
+              >Falar no WhatsApp</small
+            ></span
+          >
+        </a>
+
+        <div class="mt-auto pt-3">
+          <hr class="border-secondary opacity-50 my-3" />
+          <a
+            class="menu-link menu-link-danger"
+            style="cursor: pointer"
+            (click)="logout()"
+            data-bs-dismiss="offcanvas"
+          >
+            <span class="menu-text"
+              ><b>Sair</b
+              ><small class="d-block text-secondary"
+                >Encerrar sessão</small
+              ></span
+            >
+          </a>
+        </div>
+      </div>
     </div>
   </div>
 </nav>
